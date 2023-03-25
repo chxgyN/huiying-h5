@@ -5,11 +5,10 @@ import store from './store'
 import { APP_NAME } from './config'
 
 import './assets/styles/index.css'
-import 'mind-ui-vue/lib/index.css';
+import "./assets/style/index.css"
 
-// UI 组件库
-import MindUI from 'mind-ui-vue'
-Vue.use(MindUI)
+import a from '@/components/packages'
+Vue.use(a);
 
 // px2rem css
 import 'lib-flexible/flexible'
@@ -122,6 +121,7 @@ Vue.use(Skeleton);
 
 // 阻止页面滚动
 import { preventScroll } from './util/index'
+import MCell from './components/packages/cell'
 Vue.prototype.$preventScroll = preventScroll;
 
 
