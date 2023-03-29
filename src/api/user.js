@@ -26,10 +26,6 @@ export const updateUserMovieFavorite = (id, params) => http.put(`/user/movies/${
 export const createUserMovieRating = (id, params) => http.post(`/user/movies/${id}/rating`, params)   // 用户评分
 export const userMovieWish = (id, params) => http.post(`/user/movies/${id}/wish`, params)         // 用户想看
 
-// 用户反馈
-export const createFeedback = (params) => http.post(`/feedback`, params)
-
-
 /**
  * @desc 用户收藏
  * */

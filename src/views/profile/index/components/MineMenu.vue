@@ -1,8 +1,9 @@
 <template>
   <div class="menu-list">
     <div class="menu-item" @click="pathTo('actors')">
-      <div class="menu-count">{{ count.actor_count }}</div>
-      <div class="menu-name">关注影人</div>
+      <div class="menu-count" v-if="!isLogin">{{ count.actor_count }}</div>
+      <m-icon name="user" color="#EE5C42" v-else/>
+      <div class="menu-font-name">关注影人</div>
     </div>
     <div class="menu-item" @click="pathTo('information')">
       <div class="menu-count" v-if="!isLogin">{{ count.information_count}}</div>

@@ -5,7 +5,6 @@ import store from './store'
 import { APP_NAME } from './config'
 
 import './assets/styles/index.css'
-import "./assets/style/index.css"
 
 import a from '@/components/packages'
 Vue.use(a);

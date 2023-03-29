@@ -3,7 +3,8 @@ import store from '@/store'
 import router from '@/router'
 import { HOST } from '@/config'
 //js文件中使用但不use
-import { Toast } from 'mind-ui-vue'
+// import Toast from '@/components/packages/Toast'
+
 
 
 // 默认配置,作用于每个请求 axios 配置
@@ -64,7 +65,7 @@ axios.interceptors.response.use(res => {
   } 
   
   else if (String(error).includes('Network Error')) {
-    // Toast('网络异常')
+    Toast('网络异常')
     router.push({
       path: '/offline'
     })

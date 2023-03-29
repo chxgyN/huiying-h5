@@ -31,12 +31,6 @@ export default [
             component: () => import('@/views/profile/information/index')
           },
           {
-            path: '/profile/feedback',
-            name: "Feedback",
-            component: () => import('@/views/profile/feedback')
-          },
-
-          {
             path: '/profile/author',
             name: "AboutAuthor",
             component: () => import('@/views/profile/aboutus/author')

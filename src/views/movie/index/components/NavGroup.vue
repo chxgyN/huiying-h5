@@ -122,7 +122,8 @@ export default {
 
       if (code === 200) {
         this.navList = data;
-        this.categories = data.categories;
+        this.categories = data.categories.filter(c => c.name !== "全部");
+        console.log(data.categories);
         this.countries = [{ name: "全部" }, ...data.countries];
         this.years = [{ name: "全部" }, ...data.years];
       }

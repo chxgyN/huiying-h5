@@ -1,28 +1,12 @@
 <template>
   <div class="menu-cell">
-    <!-- <m-cell-group border card v-if="user">
-      <m-cell
-        icon="tag"
-        icon-color="#ffbe10"
-        title="我的资料"
-        url="/profile/information"
-      />
-
-      <m-cell
-        icon="star"
-        icon-color="#ffbe10"
-        title="影片收藏夹"
-        url="/profile/favorites"
-      />
-    </m-cell-group> -->
-
     <m-cell-group border card>
-      <m-cell
+      <!-- <m-cell
         icon="feed"
         icon-color="#ffbe10"
         title="意见反馈"
         url="/profile/feedback"
-      />
+      /> -->
       <m-cell
         icon="boy"
         icon-color="#ffbe10"

@@ -13,7 +13,7 @@
       >
         <img class="honour-icon" src="~images/honour-cup.png" />
       </div>
-
+      <!-- 收藏 -->
       <div
         @click="showSaveModal()"
         :class="{ 'is-checked': movie.is_collection }"
@@ -56,7 +56,7 @@
             :class="{ 'is-wish': movie.is_wish }"
             @click="userMovieWish()"
           >
-            <i class="iconfont icon-love"></i>
+            <!-- <i class="iconfont icon-love"></i> -->
             {{ movie.is_wish ? "已想看" : "想看" }}
           </div>
 
@@ -66,7 +66,7 @@
             class="btn"
             @click="$router.push(`/movies/${movie.id}/rating/create`)"
           >
-            <i class="iconfont icon-star-fill"></i>
+            <!-- <i class="iconfont icon-star-fill"></i> -->
             看过
           </div>
         </div>
@@ -149,6 +149,7 @@ export default {
   .movie-info {
     position: relative;
     margin-left: 25px;
+    // 所有子项平分父亲，不管子项是否设置了固定宽度
     flex: 1;
     color: rgb(176, 179, 187);
     .award-icon {
@@ -165,17 +166,17 @@ export default {
       border-radius: 50px 0 0 50px;
       background-color: rgba(#000000, 0.35);
       box-shadow: 0 4px 4px rgba(#000000, 0.15);
-      &::after {
-        content: "";
-        z-index: -1;
-        position: absolute;
-        left: 2px;
-        top: 2px;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background-color: rgba(#000000, 0.45);
-      }
+      // &::after {
+      //   content: "";
+      //   z-index: -1;
+      //   position: absolute;
+      //   left: 2px;
+      //   top: 2px;
+      //   width: 48px;
+      //   height: 48px;
+      //   border-radius: 50%;
+      //   background-color: rgba(#000000, 0.45);
+      // }
       img {
         width: 32px;
         height: 32px;
@@ -189,31 +190,31 @@ export default {
       z-index: 1;
       position: absolute;
       right: -20px;
-      top: 35px;
+      top: 90px;
       padding-right: 20px;
       width: 70px;
-      height: 123px;
+      height: 52px;
       border-radius: 50px 0 0 50px;
       background-color: rgba(#000000, 0.35);
-      box-shadow: 0 4px 4px rgba(#000000, 0.15);
-      &::after {
-        content: "";
-        z-index: -1;
-        position: absolute;
-        left: 2px;
-        top: 86px;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background-color: rgba(#000000, 0.45);
-      }
+      // box-shadow: 0 4px 4px rgba(#000000, 0.15);
+      // &::after {
+      //   content: "";
+      //   z-index: -1;
+      //   position: absolute;
+      //   left: 2px;
+      //   top: 86px;
+      //   width: 48px;
+      //   height: 48px;
+      //   border-radius: 50%;
+      //   background-color: rgba(#000000, 0.45);
+      // }
       img {
         width: 32px;
         height: 32px;
       }
       &.is-checked {
-            color: $color-theme;
-          }
+        color: $color-theme;
+      }
     }
     .title {
       margin: 3px 0;

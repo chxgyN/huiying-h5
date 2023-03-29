@@ -36,7 +36,7 @@ import Timeline from "./timeline";
 import TimelineItem from "./timeline-item";
 import Toast from "./toast";
 
-// import "./assets/style/index.scss";
+import "./assets/style/index.css";
 
 const components = [
   Actionsheet,
