@@ -183,20 +183,10 @@ export default {
         cast: [],
         review_count: 0,
         reviews: [],
-        // serial_count: 0,
-        // serials: [],
         like_movies: [],
-        // role_count: 0,
-        // roles: [],
         collection_count: 0,
-        comment_count: 0,
-        comments: [],
-        // video_count: 0,
-        // videos: [],
         photo_count: 0,
         photos: [],
-        // article_count: 0,
-        // articles: [],
         is_wish: false, // 是否想看
         is_collection: false,
       },
@@ -269,7 +259,6 @@ export default {
       "MovieDetail",
       "MovieRating",
       "MovieRatingCreate",
-      "MovieComment",
     ];
 
     if (layerRouters.includes(to.name)) {

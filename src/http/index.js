@@ -3,7 +3,7 @@ import store from '@/store'
 import router from '@/router'
 import { HOST } from '@/config'
 //js文件中使用但不use
-// import Toast from '@/components/packages/Toast'
+import Toast from '@/components/packages/toast'
 
 
 

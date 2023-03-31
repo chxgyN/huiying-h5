@@ -22,15 +22,6 @@
         </div>
       </div>
     </div>
-
-    <!-- footer -->
-    <div class="swiper-footer" v-if="photo">
-      <!-- 用户点赞 -->
-      <user-like type="photos" :data="photo" default-count="" />
-
-      <!-- 用户收藏 -->
-      <user-collection type="photos" :data="photo" default-count="" />
-    </div>
   </div>
 </template>
 

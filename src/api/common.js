@@ -9,13 +9,5 @@ export const checkPhoneCode = (params) => http.post("/code", params)	// 校验�
 
 export const search = (params) => http.get("/search", params);        // 搜索
 
-// 获取评论
-export const getComments = (type, id, params) => http.get(`/${type}/${id}/comments`, params);
-export const createComment = (type, id, params) => http.post(`/${type}/${id}/comments`, params);
-export const deleteComment = (id) => http.delete(`/comments/${id}`);
 
 
-
-// 举报
-export const getReport = (params) => http.get(`/reports`, params);
-export const createReport = (params) => http.post(`/reports`, params);

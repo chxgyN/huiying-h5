@@ -36,10 +36,6 @@ Vue.use(Page)
 import MPanel from '@/components/MPanel'
 Vue.use(MPanel)
 
-// 文章列
-// import ArticleItem from '@/components/Article/ArticleItem'
-// Vue.use(ArticleItem)
-
 // 影人列
 import ActorItem from '@/components/Actor/ActorItem/index'
 Vue.use(ActorItem)
@@ -91,22 +87,6 @@ Vue.use(PhotoGroup);
 import PhotoSwiper from "./components/Photo/PhotoSwiper/index";
 Vue.use(PhotoSwiper);
 
-// tool bar
-import ToolBar from "./components/Tool/ToolBar/index";
-Vue.use(ToolBar);
-
-// 点赞
-import UserLike from "./components/Tool/UserLike/index";
-Vue.use(UserLike);
-
-// 收藏
-import UserCollection from "./components/Tool/UserCollection/index";
-Vue.use(UserCollection);
-
-// 举报
-import Report from "./components/Report/index";
-Vue.use(Report);
-
 // loading skeleton
 import Skeleton from "./components/Skeleton/index";
 Vue.use(Skeleton);
@@ -120,7 +100,7 @@ Vue.use(Skeleton);
 
 // 阻止页面滚动
 import { preventScroll } from './util/index'
-import MCell from './components/packages/cell'
+// import MCell from './components/packages/cell'
 Vue.prototype.$preventScroll = preventScroll;
 
 

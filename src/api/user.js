@@ -46,11 +46,6 @@ export const deleteCollection = (type, id) => http.delete(`/user/${type}/${id}/c
 // 投票，赞同与反对
 export const createReviewVote = (id, params) => http.post(`/reviews/${id}/voters`, params);
 
-// 评论喜欢
-export const createCommentLike = (id) => http.post(`/comments/${id}/like`);
-export const deleteCommentLike = (id) => http.delete(`/comments/${id}/like`);
-
-
 /**
  * @desc 点赞
  * type 被点赞的资源 可选值为 videos photos 

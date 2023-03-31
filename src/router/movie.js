@@ -19,12 +19,6 @@ export default [
         component: () => import('@/views/movie/detail/award/index')
       },
       {
-        path: '/movies/:id/comments',
-        name: "MovieComment",
-        props: true,
-        component: () => import('@/views/comment/index')
-      },
-      {
         // 看过评分
         path: '/movies/:id/rating/create',
         name: "MovieRatingCreate",
