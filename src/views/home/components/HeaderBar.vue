@@ -1,3 +1,4 @@
+<!-- 首页搜索顶部 -->
 <template>
   <div class="header-bar-wrapper">
     <!-- 绑定class样式的对象写法 不确定用不用 -->
@@ -12,7 +13,6 @@
 
 <script>
 import { throttle } from "@/util/index";
-// import { colorToRgba } from "@/util/color";
 
 export default {
   name: "HeaderBar",
@@ -29,13 +29,14 @@ export default {
       return this.scrollTop <= 1;
     },
   },
-
+  // 移入当前页面，给整个页面中添加了一个滚动事件监听器，回调函数
+  // 减少滚动事件的触发次数，从而提高应用的性能。
   activated() {
-    window.addEventListener("scroll", this.getScrollTop);
+    window.addEventListener("scroll", this.handleScroll);
   },
 
   deactivated() {
-    window.removeEventListener("scroll", this.getScrollTop);
+    window.removeEventListener("scroll", this.handleScroll);
   },
 
   methods: {
@@ -44,9 +45,8 @@ export default {
     }),
 
     getScrollTop() {
-      let scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-
+      // 为了兼容不同的浏览器，通常会使用类似下面的代码来获取滚动条位置
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       this.scrollTop = scrollTop;
     },
   },

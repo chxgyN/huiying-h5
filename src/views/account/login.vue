@@ -122,7 +122,7 @@ export default {
       // 400失败
       try {
         const loginRes = await this.$store.dispatch("user/login", this.form);
-        console.log(loginRes);
+        // console.log(loginRes);
         if (loginRes.code !== 200) {
           this.loading = false;
           // this.$toast(loginRes.message);

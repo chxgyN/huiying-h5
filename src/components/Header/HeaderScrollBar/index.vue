@@ -1,3 +1,4 @@
+<!-- 电影详情页的页眉 -->
 <template>
   <div class="header-wrapper" ref="header">
     <header class="header">
@@ -139,7 +140,6 @@ export default {
     getScrollTop() {
       let scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop;
-
       // 只有在滚动范围内时改变 scrollTop 值以优化滚动
       if (this.scrollTopValue <= this.endTop + 20) {
         this.scrollTop = scrollTop;

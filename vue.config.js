@@ -17,7 +17,7 @@ module.exports = {
   publicPath: "/",
   devServer: {
     open: true,
-    port: 8080
+    port: 8848
   },
   // webpack 配置进行更细粒度的修改。
   // 这里面可以定义具名的loader规则和具名插件。
