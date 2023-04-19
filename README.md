@@ -13,6 +13,3 @@ npm run serve
 ```
 npm run build
 ```
-
-## License
-GPL
