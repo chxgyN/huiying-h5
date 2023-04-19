@@ -2,8 +2,7 @@
   <div class="movie-info-wrapper">
     <div class="movie-poster">
       <img class="poster" :src="poster" />
-    </div>
-
+    </div> 
     <div class="movie-info">
       <!-- 奖项 -->
       <div
@@ -24,16 +23,16 @@
 
       <h1 class="title" v-html="movie.title"></h1>
 
-      <h3 class="subtitle" v-html="movie.title_original">
-        {{ movie.title_original }}
-      </h3>
+      <h3 class="subtitle" v-html="movie.title_original"></h3>
 
       <div
         class="info-brief"
         :class="{ 'is-episode': isEpisode }"
         @click="$router.push(`/movies/${movie.id}/detail`)"
       >
-        <div class="info-list genre">{{ movie.genres }}</div>
+        <div class="info-list genre">
+          {{ movie.genres }}
+        </div>
         <div class="info-list">
           <span>{{ movie.countries }}</span>
           <em v-if="movie.year">·</em>
@@ -51,12 +50,12 @@
       <!-- 想看/评分 -->
       <template v-if="!loading">
         <div class="btn-group" v-if="!movie.is_rating">
+          <!-- 自定义事件请求 想看状态 -->
           <div
             class="btn"
             :class="{ 'is-wish': movie.is_wish }"
             @click="userMovieWish()"
           >
-            <!-- <i class="iconfont icon-love"></i> -->
             {{ movie.is_wish ? "已想看" : "想看" }}
           </div>
 
@@ -66,7 +65,6 @@
             class="btn"
             @click="$router.push(`/movies/${movie.id}/rating/create`)"
           >
-            <!-- <i class="iconfont icon-star-fill"></i> -->
             看过
           </div>
         </div>
@@ -86,7 +84,9 @@
             allow-half
             readonly
           />
-          <time>{{ movie.my_rating.created_date }}</time>
+          <time>
+            {{ movie.my_rating.created_date }}
+          </time>
         </div>
       </template>
     </div>
@@ -122,7 +122,7 @@ export default {
       this.$emit("wish-change");
     },
     showSaveModal() {
-      this.$router.push(`/movies/${this.movie.id}/favorite`);
+      this.$router.push(`${this.movie.id}/favorite`);
     },
   },
 };
@@ -166,17 +166,6 @@ export default {
       border-radius: 50px 0 0 50px;
       background-color: rgba(#000000, 0.35);
       box-shadow: 0 4px 4px rgba(#000000, 0.15);
-      // &::after {
-      //   content: "";
-      //   z-index: -1;
-      //   position: absolute;
-      //   left: 2px;
-      //   top: 2px;
-      //   width: 48px;
-      //   height: 48px;
-      //   border-radius: 50%;
-      //   background-color: rgba(#000000, 0.45);
-      // }
       img {
         width: 32px;
         height: 32px;
@@ -196,18 +185,6 @@ export default {
       height: 52px;
       border-radius: 50px 0 0 50px;
       background-color: rgba(#000000, 0.35);
-      // box-shadow: 0 4px 4px rgba(#000000, 0.15);
-      // &::after {
-      //   content: "";
-      //   z-index: -1;
-      //   position: absolute;
-      //   left: 2px;
-      //   top: 86px;
-      //   width: 48px;
-      //   height: 48px;
-      //   border-radius: 50%;
-      //   background-color: rgba(#000000, 0.45);
-      // }
       img {
         width: 32px;
         height: 32px;

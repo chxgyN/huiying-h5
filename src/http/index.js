@@ -6,7 +6,6 @@ import { HOST } from '@/config'
 import Toast from '@/components/packages/toast'
 
 
-
 // 默认配置,作用于每个请求 axios 配置
 axios.defaults.timeout = 20000
 axios.defaults.baseURL = HOST

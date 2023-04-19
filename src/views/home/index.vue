@@ -3,7 +3,6 @@
      <!-- 加载效果 -->
     <skeleton v-if="loading" />
 
-    <!-- <header-bar :bgcolor="bgcolor" /> -->
     <header-bar/>
 
     <!-- swiper -->
@@ -11,13 +10,9 @@
       <home-swiper :data="swipers" @swiper-index-change="onSwiperIndexChange" />
     </div> -->
 
-    <!-- 导航菜单 -->
-   
-
     <!-- 正在热映 -->
     <!-- slot默认插槽（组件中放内容）抽取共性、用slot占位保留不同 
     要「重复」使用某个组件 但组件中的一部分内容结构不同-->
-
     
     <m-panel 
       title="正在热映" 
@@ -32,7 +27,6 @@
       </div>
     </m-panel>
 
-    
     <!-- 即将上映 -->
     <m-panel 
       title="即将上映" 
@@ -49,7 +43,6 @@
         </movie-row>
       </div>
     </m-panel>
-    
     
     <!-- 那年今日 -->
     <m-panel title="那年今日" :subtitle="todays.total + '部'" to="/today">

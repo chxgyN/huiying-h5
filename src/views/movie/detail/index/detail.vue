@@ -1,4 +1,5 @@
 <template>
+  <!--<page :footer-close="true"> -->
   <page footer-close>
     <div class="skeleton-wrapper" v-if="loading">
       <div class="skeleton"></div>

@@ -20,6 +20,7 @@ export const getInfiniteData = {
     },
   },
 
+  // 无限滚动指令中定义，一上来就调用一次加载方法 -> getData
   mounted() {
     this.loadMore();
   },
@@ -27,13 +28,13 @@ export const getInfiniteData = {
   methods: {
     async getData(fn, ...args) {
 
-      if (this.isError) return;
+      // 请求失败 / 正在加载 / 没有更多数据 阻止滚动继续发起请求
+      if (this.isError || this.loading || this.noMoreData) return;
 
+      // 没有更多数据且第一页列表无数据，可以再次请求
       if (this.noMoreData && this.page === 1 && this.list.length === 0) {
         this.noMoreData = false;
       }
-
-      if (this.loading || this.noMoreData) return;
 
       this.loading = true;
 
@@ -52,18 +53,15 @@ export const getInfiniteData = {
         } else {
           this.noData = false;
         }
-
         this.isError = false;
-
         this.page++;
-
         this.list.push(...data);
         this.total = total || 0
-
         if (data.length < this.per_page) {
           this.noMoreData = true;
         }
-      } else {
+      } 
+      else {
         this.isError = true;
       }
 

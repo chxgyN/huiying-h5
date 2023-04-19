@@ -77,8 +77,8 @@
 
       <!-- 剧情 -->
       <m-panel title="剧情" :to="`/movies/${id}/detail`" v-if="movie.summary">
-        <div class="summary" @click="$router.push(`/movies/${id}/detail`)">
-          <div v-html="movie.summary"></div>
+        <div class="summary">
+          <div>{{ movie.summary }}</div>
         </div>
       </m-panel>
 
@@ -89,13 +89,18 @@
         :subtitle="`全部${movie.cast_count}`"
         :to="`/movies/${movie.id}/cast`"
       >
-        <ul class="_common_section actor-list list-content">
+      <!-- 插槽中对该内容区域设置了两个样式 实现横向滚动
+        overflow-x：scroll 
+        防止文本换行
+      -->
+        <div class="actor-list ">
+          <!-- 每一个都是行内块 -->
           <actor-row
             v-for="actor in movie.cast"
             :key="actor.union_id"
             :actor="actor"
           />
-        </ul>
+        </div>
       </m-panel>
     </div>
 
@@ -153,10 +158,8 @@ import { userMovieWish } from "@/api/user";
 import MovieInfo from "./components/MovieInfo";
 import MovieRating from "./components/MovieRating";
 import PhotoWall from "./components/PhotoWall";
-// import SerialRow from "./components/SerialRow";
 import MovieAward from "./components/MovieAward";
 import MovieExtra from "./components/MovieExtra";
-
 import Skeleton from "./components/Skeleton";
 
 export default {
@@ -210,7 +213,7 @@ export default {
         : this.movie.poster;
     },
     bgStyle() {
-      return `background: linear-gradient(35deg, ${this.movie.bgcolor}, ${this.movie.bgcolor}e0);`;
+      return { background: this.movie.bgcolor };
     },
     hasExtra() {
       return (
@@ -314,7 +317,9 @@ export default {
     },
 
     async wishChange() {
+      // 网速很慢 多次点击必须等异步请求完成后 才可以进行下次请求
       if (this.wishLoading) return;
+
 
       this.wishLoading = true;
       const { code, data, message } = await userMovieWish(this.id);
@@ -322,8 +327,8 @@ export default {
 
       if (code === 200) {
         this.movie.is_wish = data.is_wish;
+        // 取消想看1 想看2
         this.movie.wish_count = data.wish_count;
-
         this.$message.success(message);
       }
     },
@@ -372,11 +377,6 @@ export default {
       font-style: 20px;
     }
   }
-  // .article-list {
-  //   .article-item {
-  //     padding: 20px 0;
-  //   }
-  // }
   .movie-subtitle {
     font-size: 24px;
     max-width: 360px;
@@ -391,6 +391,7 @@ export default {
   background-color: #232020;
   ::v-deep .panel {
     margin: 0;
+    // 设置元素背景透明
     background-color: transparent;
     .panel-title span {
       color: #fff;
@@ -402,17 +403,9 @@ export default {
       color: #fff;
     }
   }
-  // .egg {
-  //   margin: 30px 20px 0;
-  //   color: #b0b3bb;
-  //   font-size: 28px;
-  //   .icon-egg {
-  //     padding-right: 10px;
-  //     font-size: 32px;
-  //   }
-  // }
   .tag-list {
     display: flex;
+    // 弹性盒子换行
     flex-wrap: wrap;
     margin: 30px 20px 0;
     color: #f5f5f5;
@@ -430,13 +423,15 @@ export default {
     white-space: normal;
     color: #f5f5f5;
     display: -webkit-box;
+    // 主轴设置为垂直方向
     -webkit-box-orient: vertical;
+    // 限制显示行数为四行
     -webkit-line-clamp: 4;
-    overflow: hidden;
-    text-align: justify;
-    white-space: pre-wrap;
+    // overflow: hidden;
+    // text-align: justify;
   }
   .actor-list {
+    // 使用了 ::v-deep 伪类选择器来穿透组件的样式作用域，从而修改 .actor-row 元素内部的样式。
     ::v-deep .actor-row {
       .actor-name {
         color: #fff;
@@ -446,12 +441,6 @@ export default {
       }
     }
   }
-  // .role-list {
-  //   ::v-deep .role-row {
-  //     .role-name {
-  //       color: #fff;
-  //     }
-  //   }
-  // }
+
 }
 </style>

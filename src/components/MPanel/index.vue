@@ -1,18 +1,21 @@
 <template>
   <div class="panel">
     <div class="panel-header">
+      <!-- 主标题 -->
       <div class="panel-title">
         <span>{{ title }}</span>
       </div>
+      <!-- 副标题 和 > -->
       <div class="panel-more" @click="routerTo">
+        <!-- $slots.subtitle判断 该组件的使用者是否在使用该组件时传递了名为 subtitle 的具名插槽。 -->
         <slot name="subtitle" v-if="$slots.subtitle"></slot>
         <span v-else>{{ subtitle }}</span>
-        <m-icon v-if="to" name="arrow-right" size="24" />
+        <m-icon v-if="to" name="arrow-right" size="24"/>
       </div>
     </div>
-
+    <!-- 不确定使不使用 -->
     <div class="panel-content" :class="{ 'scroll-x': scrollX }">
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
@@ -57,34 +60,38 @@ export default {
 
 <style scoped lang="scss">
 .panel {
+  // 标准文档流中，竖直方向不叠加
   margin: 20px;
   padding-bottom: 20px;
   background-color: rgb(255, 255, 255);
-  border-radius: 12px;
+  border-radius: 10px;
   .panel-header {
     padding: 0 20px;
     height: 84px;
-    line-height: 84px;
+    // 行高
+    line-height: 84px;  
     font-size: 28px;
     color: #666;
     display: flex;
     align-items: center;
     .panel-title {
+      // 拉伸填充剩余空间
       flex: 1;
       span {
+        // 字体粗细程度
         font-weight: 500;
-        display: inline-block;
-        &::before {
-          content: "";
-          vertical-align: middle;
-          display: inline-block;
-          margin-top: -4px;
-          margin-right: 8px;
-          width: 6px;
-          height: 28px;
-          border-radius: 10px;
-          background-color: $color-theme;
-        }
+        // display: inline-block;
+        // &::before {
+        //   content: "";
+        //   vertical-align: middle;
+        //   display: inline-block;
+        //   margin-top: -4px;
+        //   margin-right: 8px;
+        //   width: 6px;
+        //   height: 28px;
+        //   border-radius: 10px;
+        //   background-color: $color-theme;
+        // }
       }
     }
     .panel-more {
@@ -99,6 +106,7 @@ export default {
 
   .panel-content {
     width: 100%;
+    // 交集选择器
     &.scroll-x {
       padding: 0 22px;
       overflow-x: scroll;

@@ -6,7 +6,8 @@
       class="page-cover"
       :class="{ 'is-show': isShow }"
       @click="goBack()"
-    ></div>
+    >
+    </div>
 
     <!-- 内容区 -->
     <div
@@ -39,10 +40,12 @@
 
       <!-- 内容 -->
       <div class="page-content" ref="pageContent">
-        <slot />
+        <slot/>
       </div>
 
       <!-- 页底关闭返回上一页按钮 -->
+      <!-- 该组件使用者传入footerClose，
+        <slot name="footer" /> 未使用展示 -->
       <div class="page-icon-footer" v-if="footerClose && !$slots.footer">
         <m-icon name="cross" @click="goBack()" />
       </div>
@@ -171,9 +174,11 @@ export default {
 
     // 返回上一页
     goBack() {
+      // 返回拦截
       if (typeof this.beforeBack === "function") {
         this.beforeBack(this.back);
       } else {
+        console.log(this.$slots);
         this.back();
       }
     },

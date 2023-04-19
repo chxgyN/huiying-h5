@@ -96,19 +96,6 @@
         />
       </ul>
     </m-panel>
-
-    <!-- 角色 -->
-    <!-- <m-panel
-      v-if="actor.role_count"
-      title="饰演角色"
-      :subtitle="`全部${actor.role_count}部`"
-      :to="`${id}/roles`"
-    >
-      <ul class="list-content">
-        <role-row v-for="role in actor.roles" :key="role.id" :role="role" />
-      </ul>
-    </m-panel> -->
-
     <footer-info />
 
     <transition :name="transition">

@@ -39,19 +39,21 @@ export default {
 <style scoped lang="scss">
 .actor-row {
   display: inline-block;
-  position: relative;
+  // position: relative;
+  // 行内元素对齐方式
   vertical-align: top;
   margin-right: 16px;
   padding-bottom: 15px;
   width: 188px;
   .actor-avatar {
-    position: relative;
+    // position: relatve;
     width: 188px;
     height: 268px;
     overflow: hidden;
+    // 填充
     object-fit: cover;
     border-radius: 6px;
-    background-color: rgba(#f5f5f5, 0.45);
+    // background-color: rgba(#f5f5f5, 0.45);
   }
   .actor-info {
     .actor-name {
