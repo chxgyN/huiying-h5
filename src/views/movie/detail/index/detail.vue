@@ -1,3 +1,4 @@
+<!-- 电影详情信息 -->
 <template>
   <!--<page :footer-close="true"> -->
   <page footer-close>

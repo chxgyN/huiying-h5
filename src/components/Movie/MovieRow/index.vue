@@ -2,11 +2,12 @@
   <div class="movie-row" @click="pathTo()">
     <div class="poster-wrapper">
       <img v-lazy="movie.poster" class="img-cover" />
-
       <!-- category -->
+      <!-- 影视类型右上角绝对定位 -->
       <div class="category-tag" v-if="isShowCategory">{{ movie.category }}</div>
-
       <div class="info" v-if="!isComing">
+        <!-- 因为是文字 不用绝对定位？？
+          span浮动左下角 label浮动右下角 -->
         <span v-if="movie.episode_count">全{{ movie.episode_count }}集</span>
         <label v-if="movie.rating">{{ movie.rating }}分</label>
         <label v-else>暂无评分</label>
@@ -18,7 +19,7 @@
       </div>
     </div>
     <h6 class="title">{{ movie.title }}</h6>
-    <slot />
+    <slot/>
   </div>
 </template>
 

@@ -4,10 +4,13 @@
 
     <skeleton v-if="loading" />
 
-    <m-cell v-for="p in list" :key="p.id" :title="p.pubdate"
-      >{{ p.country }}
-      <span class="is-premiere">{{ p.premiere ? "(首映)" : "" }}</span></m-cell
-    >
+    <!-- 展示组件（类似表格数据 -->
+    <m-cell v-for="p in list" :key="p.id" :title="p.pubdate">
+      {{ p.country }}
+      <span class="is-premiere">
+        {{ p.premiere ? "(首映)" : "" }}
+      </span>
+    </m-cell>
   </page>
 </template>
 

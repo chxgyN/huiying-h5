@@ -1,6 +1,8 @@
+<!-- 收藏夹 -->
 <template>
-  <page z-index="98" title="选择收藏夹" half round height="60vh">
-    <template v-slot:header-left>
+  <!-- 60vh相对于视窗60%的大小 -->
+  <page z-index="98" title="选择收藏夹" half round height="55vh">
+    <template v-slot:headerLeft>
       <m-icon name="arrow-left" :size="32" @click="close()" />
     </template>
 
@@ -19,7 +21,6 @@
       <div class="no-data" v-if="list.length === 0 && !loading">
         您还没有收集夹
       </div>
-
       <div class="loading" v-if="loading">
         <m-spinner
           v-if="loading"
@@ -30,9 +31,9 @@
     </div>
 
     <template v-slot:footer>
-      <m-button @click="submit" v-if="list.length" :loading="submitLoading"
-        >保 存</m-button
-      >
+      <m-button @click="submit" v-if="list.length" :loading="submitLoading">
+        保 存
+      </m-button>
     </template>
 
     <!-- 创建收藏夹 -->
@@ -60,7 +61,6 @@ export default {
 
   mounted() {
     this.$preventScroll(true);
-
     this.getUserFavorites();
   },
 
@@ -95,25 +95,22 @@ export default {
         this.list = data;
       }
     },
-
+    
     async submit() {
       const checkedList = this.list.filter((item) => item.is_checked);
       const favorite_ids = checkedList.map((item) => item.id);
-
       const params = {
         favorite_ids,
       };
-
       this.submitLoading = true;
       const { code, data, message } = await updateUserMovieFavorite(this.id, params);
       this.submitLoading = false;
-
       if (code === 200) {
         this.$toast({
           position: "top",
           message,
         });
-
+        // 传递过去应该是为了更换收藏颜色
         this.$emit("favorite-update", data);
         this.$router.back();
       }

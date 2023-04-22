@@ -25,12 +25,6 @@ export default [
         props: true,
         component: () => import('@/views/movie/detail/rating/create'),
       },
-      // {
-      //   path: '/movies/:id/rating',
-      //   name: "MovieRating",
-      //   props: true,
-      //   component: () => import('@/views/movie/detail/rating/index'),
-      // },
       {
         // 收藏
         path: '/movies/:id/favorite',
@@ -84,11 +78,4 @@ export default [
     name: "MovieCast",
     component: () => import('@/views/movie/detail/cast')
   },
-  // {
-  //   path: '/movies/:id/serials',
-  //   props: true,
-  //   name: "MovieSerials",
-  //   component: () => import('@/views/movie/detail/serial')
-  // },
-
 ]

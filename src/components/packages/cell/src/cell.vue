@@ -1,18 +1,19 @@
+<!-- 展示类似表格数据 -->
 <template>
   <div @click="onClick" class="m-cell" :class="customClass">
     <div v-if="icon" class="m-cell__header">
       <m-icon :name="icon" size="38" :color="iconColor" />
     </div>
 
+    <!-- props没有传递title属性，寻找title的具名插槽 -->
     <div v-if="title" class="m-cell__title">{{ title }}</div>
     <slot v-else name="title" />
 
     <div v-if="value" class="m-cell__desc" :class="{ 'is-ellipsis': ellipsis }">
       {{ value }}
     </div>
-
     <div v-else class="slot">
-      <slot />
+      <slot/>
     </div>
 
     <m-icon

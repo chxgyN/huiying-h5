@@ -1,3 +1,4 @@
+<!-- 演员详情页面 -->
 <template>
   <div class="actor">
     <!-- 加载 -->
@@ -18,15 +19,23 @@
       </div>
     </header-scroll-bar>
 
+    <!-- 点击事件方法更改判断属性，判断属性被ImageH监视，返回对应样式 -->
     <div class="actor-info" :style="ImageH" @click="showFullAvatar()">
+      <!-- 人物图片部分 -->
       <template v-if="!isDefaultPoster">
-        <div class="actor-avatar" :style="bgImage"></div>
+        <!-- <div 
+          class="actor-avatar" 
+          :style="bgImage">
+        </div>   -->
         <div
           class="actor-avatar actor-avatar-larger"
           :style="bgImageLarger"
-        ></div>
+        >
+        </div>
+       
       </template>
 
+      <!-- 人物信息部分 -->
       <div class="actor-info-footer">
         <div class="actor-name">{{ actor.name }}</div>
         <div class="actor-name_en">{{ actor.name_en }}</div>
@@ -39,7 +48,9 @@
           <span>{{ actor.country }}</span>
         </div>
       </div>
-
+      
+      <!-- 关注 -->
+      <!-- .stop阻止冒泡，不阻止父元素的click事件会被触发 -->
       <div
         v-if="!loading"
         class="actor-focus"
@@ -49,9 +60,6 @@
         {{ actor.is_collection ? "已关注" : "关注" }}
       </div>
     </div>
-
-    <!-- 信息统计 -->
-    <!-- <actor-count :actor="actor" /> -->
 
     <!-- 奖项 -->
     <actor-award
@@ -64,38 +72,29 @@
     <!-- 简介 -->
     <m-panel
       title="个人简介"
-      subtitle="更多信息"
+      subtitle="更多"
       :to="`/actors/${actor.id}/information`"
     >
       <div v-if="actor.summary" class="summary" v-html="actor.summary"></div>
       <div v-else class="summary no-data">暂无简介</div>
     </m-panel>
 
-    <!-- 相册 -->
-    <m-panel
-      v-if="actor.photo_count"
-      title="相册"
-      :subtitle="`全部${actor.photo_count}张`"
-      :to="`${id}/photos`"
-    >
-      <photo-group :photos="actor.photos" />
-    </m-panel>
-
     <!-- 影视作品 -->
     <m-panel
       v-if="actor.works_count"
       title="影视作品"
-      :subtitle="`全部${actor.works_count}部`"
+      :subtitle="`${actor.works_count}部`"
       :to="`${id}/works`"
     >
-      <ul class="list-content">
+      <div class="list-content">
         <movie-row
           v-for="movie in actor.works"
           :key="movie.id"
           :movie="movie"
         />
-      </ul>
+      </div>
     </m-panel>
+    
     <footer-info />
 
     <transition :name="transition">
@@ -144,34 +143,35 @@ export default {
   },
 
   computed: {
+    // 判断图片url是否包含某个字符串
     isDefaultPoster() {
       return this.actor.avatar.includes("default");
     },
-    bgImage() {
-      return `background-image:url('${this.actor.avatar}')`;
-    },
+    // bgImage() {
+    //   return `background-image:url('${this.actor.avatar}')`;
+    // },
     bgImageLarger() {
       return `background-image:url('${this.actor.avatar?.replace(
         /public/,
         "larger"
       )}')`;
     },
+    // 模板渲染完后，首次读取，此时mounted还没调用defaultHeight还没有值
+    // mounted调用后，ImageH依赖的defaultHeight改变，重新调用
     ImageH() {
       const H = this.isShowFullAvatar ? this.maxHeight : this.defaultHeight;
+      console.log(H);
       return H ? `height: ${H}` : "";
     },
   },
 
   created() {
     document.title = "影人";
-
     const actor = this.$store.getters.getActor;
-
     if (actor && parseInt(this.id) === actor.id) {
       this.actor = { ...this.$options.data().actor, ...actor };
       document.title = actor.name;
     }
-
     this.getActor();
   },
 
@@ -207,6 +207,7 @@ export default {
 
     // 关注
     async focusActor() {
+      // 网速慢，进入关注异步函数中时，反复点击无效并返回
       if (this.focusLoading) return;
 
       this.focusLoading = true;
@@ -263,11 +264,13 @@ export default {
     position: relative;
     height: 460px;
     background-color: rgba($color-theme, 0.85);
+    // 当前元素高度发生变化，过度动画持续 0.2秒
     transition: height 0.2s;
     .actor-avatar {
       height: 100%;
       background-size: cover;
       background-repeat: no-repeat;
+      // 上移了一点
       background-position: center 20%;
     }
     .actor-avatar-larger {
@@ -293,6 +296,7 @@ export default {
     }
 
     .actor-info-footer {
+      // 绝对定位到父元素底部
       position: absolute;
       left: 0;
       bottom: 0;

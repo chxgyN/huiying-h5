@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    
     <skeleton v-if="loading" :is-half="isHalf" :offset-top="infoHeight" />
 
     <!-- 吸顶头部 -->
@@ -64,24 +65,25 @@
         ref="movieInfoRef"
         @wish-change="wishChange"
       />
-
       <!-- 评分 -->
       <movie-rating :movie="movie" />
-
       <!-- 标签 -->
       <div class="tag-list">
         <div class="tag" v-for="(tag, index) in movie.tags" :key="index">
           {{ tag }}
         </div>
       </div>
-
       <!-- 剧情 -->
-      <m-panel title="剧情" :to="`/movies/${id}/detail`" v-if="movie.summary">
+      <m-panel 
+        title="剧情" 
+        subtitle="详情"
+        :to="`/movies/${id}/detail`" 
+        v-if="movie.summary"
+      >
         <div class="summary">
           <div>{{ movie.summary }}</div>
         </div>
       </m-panel>
-
       <!-- 演员 -->
       <m-panel
         v-if="movie.cast_count > 0"
@@ -104,17 +106,7 @@
       </m-panel>
     </div>
 
-    <!-- 相册 -->
-    <m-panel
-      v-if="movie.photo_count > 0"
-      title="相册"
-      :subtitle="`全部${movie.photo_count}`"
-      :to="`/movies/${movie.id}/photos`"
-    >
-      <photo-wall :photos="movie.photos" />
-    </m-panel>
-
-    <!-- 奖项 -->
+    <!-- 奖项 子页面-->
     <m-panel
       v-if="movie.awards_total_count > 0"
       title="奖项"
@@ -128,18 +120,24 @@
       <movie-extra :movie="movie" />
     </m-panel>
 
-    <!-- 相似 -->
-    <m-panel title="相似影视" v-if="movie.like_movies.length > 0">
-      <div>
-        <movie-row
-          v-for="movie in movie.like_movies"
-          :key="movie.id"
-          :movie="movie"
-        />
-      </div>
+    <!-- 相似 to属性才有小箭头和跳转-->
+    <!-- movierow不是影视筛选页的，而是全局注册的那个 -->
+    <!-- 懒加载 -->
+    <m-panel 
+      title="相似影视" 
+      v-if="movie.like_movies.length > 0"
+    >
+      <movie-row
+        v-for="movie in movie.like_movies"
+        :key="movie.id"
+        :movie="movie"
+      />
     </m-panel>
 
     <!-- 详情/收藏等 -->
+    <!-- 包裹添加过渡效果 -->
+    <!-- 评分提交后，利用自定义事件，重新获取信息 -->
+    <!-- 收藏提交后，利用自定义事件，重新获取信息 -->
     <transition :name="transition">
       <router-view
         :movie="movie"
@@ -170,8 +168,6 @@ export default {
     PhotoWall,
     MovieAward,
     MovieExtra,
-
-    // SerialRow,
     Skeleton,
   },
 
@@ -197,8 +193,8 @@ export default {
       isShowSaveModal: true,
       check: false,
       wishLoading: false,
-
-      transition: "slide-left", // 从下往上抽屉式 layer ，页面滑动slide-left
+      // 从下往上抽屉式 layer ，页面滑动slide-left
+      transition: "slide-left", 
     };
   },
 
@@ -256,20 +252,20 @@ export default {
     },
   },
 
+  // 组件内守卫 movie下增加修改参数 变化前都会调用
   beforeRouteUpdate(to, from, next) {
+    // 使用layer上拉过渡的组件名
     const layerRouters = [
       "MovieFavorite",
       "MovieDetail",
       "MovieRating",
       "MovieRatingCreate",
     ];
-
     if (layerRouters.includes(to.name)) {
       this.transition = "layer";
     } else {
       this.transition = "slide-left";
     }
-
     next();
   },
 
@@ -319,12 +315,9 @@ export default {
     async wishChange() {
       // 网速很慢 多次点击必须等异步请求完成后 才可以进行下次请求
       if (this.wishLoading) return;
-
-
       this.wishLoading = true;
       const { code, data, message } = await userMovieWish(this.id);
       this.wishLoading = false;
-
       if (code === 200) {
         this.movie.is_wish = data.is_wish;
         // 取消想看1 想看2

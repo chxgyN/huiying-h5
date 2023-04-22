@@ -1,12 +1,14 @@
+<!-- 小箭头进入的演员表 内容部分 -->
 <template>
   <div class="panel">
+    <!-- 导演or演员横栏 -->
     <div class="panel-header">
       <div class="panel-title">
         <span class="panel-type">{{ title }}</span>
       </div>
       <div class="panel-count">({{ count }})</div>
     </div>
-
+    <!-- 人物信息 -->
     <div class="panel-content">
       <actor-item v-for="actor in actors" :key="actor.id" :actor="actor" />
     </div>
@@ -55,6 +57,7 @@ export default {
       .panel-type {
         font-weight: bold;
         display: inline-block;
+        // 伪元素display默认是inline
         &::before {
           content: "";
           vertical-align: middle;

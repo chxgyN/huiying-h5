@@ -27,14 +27,6 @@ const routes = [
     name: "Search",
     component: () => import('@/views/search/index')
   },
-  // 系列影片
-  // { 
-  //   path: '/serials/:id',
-  //   props: true,
-  //   name: "Serial",
-  //   component: () => import('@/views/movie/serial/detail/index')
-  // },
-
   { // 正在热映
     path: '/theater',
     name: "Theater",
@@ -60,15 +52,13 @@ const routes = [
     name: "Today",
     component: () => import('@/views/movie/today')
   },
-
   // 相册
-  {
-    path: '/:type/:id/photos',
-    props: true,
-    name: "Photos",
-    component: () => import('@/views/photo/index')
-  },
-
+  // {
+  //   path: '/:type/:id/photos',
+  //   props: true,
+  //   name: "Photos",
+  //   component: () => import('@/views/photo/index')
+  // },
   // 注册登录找回密码
   {
     path: '/login',

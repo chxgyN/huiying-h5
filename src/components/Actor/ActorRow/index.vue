@@ -29,7 +29,6 @@ export default {
   methods: {
     pathToActor() {
       this.$store.commit("SET_ACTOR", this.actor);
-
       this.$router.push(`/actors/${this.actor.id}`);
     },
   },

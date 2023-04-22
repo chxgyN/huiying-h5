@@ -9,6 +9,7 @@
 <script>
 export default {
   name: "PhotoWall",
+  // 默认空数组
   props: {
     photos: {
       type: Array,

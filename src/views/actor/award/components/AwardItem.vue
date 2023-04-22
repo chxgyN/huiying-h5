@@ -14,7 +14,7 @@
           <img :src="item.movie.poster" alt="" />
         </div>
         <div class="movie-detail">
-          <div class="movie-title">{{ item.movie.title }}</div>
+          <div class="movie-title">{{ item.movie.title }}({{ item.movie.rating}})</div>
           <div class="movie-rating">
             <m-rate
               v-model="item.movie.rating"
@@ -24,11 +24,11 @@
               allow-half
               readonly
             />
+ 
             <span class="rating-value">{{ item.movie.rating }}</span>
           </div>
           <div class="movie-info">
-            {{ item.movie.year }} / {{ item.movie.genres }} /
-            {{ item.movie.countries }}
+            {{ item.movie.year }} / {{ item.movie.genres }} / {{ item.movie.countries }}
           </div>
         </div>
       </div>

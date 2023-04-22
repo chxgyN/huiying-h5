@@ -5,34 +5,38 @@
     <div class="extra-item" v-if="movie.pubdate_count">
       <div class="extra-name">上映日期</div>
       <div class="extra-label" @click="$router.push(`/movies/${id}/pubdates`)">
-        查看全部({{ movie.pubdate_count }})<m-icon name="arrow-right" />
+        查看全部({{ movie.pubdate_count }})
+        <m-icon name="arrow-right" />
       </div>
     </div>
     
-    <!-- 家长引导 -->
+    <!-- 家长引导 （无限滚动-->
     <div class="extra-item" v-if="movie.level_count">
       <div class="extra-name">家长引导</div>
       <div class="extra-label" @click="$router.push(`/movies/${id}/levels`)">
-        查看全部({{ movie.level_count }})<m-icon name="arrow-right" />
+        查看全部({{ movie.level_count }})
+        <m-icon name="arrow-right" />
       </div>
     </div>
     
-    <!-- 经典台词 -->
+    <!-- 经典台词 （无限滚动-->
     <div class="extra-item" v-if="movie.dialogue_count">
       <div class="extra-name">经典台词</div>
       <div class="extra-label" @click="$router.push(`/movies/${id}/dialogues`)">
-        查看全部({{ movie.dialogue_count }})<m-icon name="arrow-right" />
+        查看全部({{ movie.dialogue_count }})
+        <m-icon name="arrow-right" />
       </div>
     </div>
 
-    <!-- 幕后知识 -->
+    <!-- 幕后知识 （无限滚动-->
     <div class="extra-item" v-if="movie.knowledge_count">
       <div class="extra-name">幕后知识</div>
       <div
         class="extra-label"
         @click="$router.push(`/movies/${id}/knowledges`)"
       >
-        查看全部({{ movie.knowledge_count }})<m-icon name="arrow-right" />
+        查看全部({{ movie.knowledge_count }})
+        <m-icon name="arrow-right" />
       </div>
     </div>
 
@@ -40,7 +44,8 @@
     <div class="extra-item" v-if="movie.company_count">
       <div class="extra-name">制作发行</div>
       <div class="extra-label" @click="$router.push(`/movies/${id}/companies`)">
-        {{ movie.company_count }}家公司参与制作发行<m-icon name="arrow-right" />
+        {{ movie.company_count }}家公司参与制作发行
+        <m-icon name="arrow-right" />
       </div>
     </div>
   </div>
@@ -57,6 +62,7 @@ export default {
   },
   data() {
     return {
+      // 获取当前路由组件的id
       id: this.$route.params.id,
     };
   },

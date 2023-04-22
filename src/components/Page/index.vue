@@ -45,7 +45,8 @@
 
       <!-- 页底关闭返回上一页按钮 -->
       <!-- 该组件使用者传入footerClose，
-        <slot name="footer" /> 未使用展示 -->
+        <slot name="footer" /> 未使用展示 
+      -->
       <div class="page-icon-footer" v-if="footerClose && !$slots.footer">
         <m-icon name="cross" @click="goBack()" />
       </div>
@@ -206,6 +207,7 @@ export default {
     background-color: rgba(#000, 0.35);
     opacity: 0;
     transition: opacity 0.1s ease-in-out;
+    // 完全不透明
     &.is-show {
       opacity: 1;
     }

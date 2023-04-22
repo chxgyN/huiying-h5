@@ -17,7 +17,7 @@
         @click="showSaveModal()"
         :class="{ 'is-checked': movie.is_collection }"
         class="collection-icon"
-      >
+      > 
         <i class="iconfont icon-star-fill"></i>
       </div>
 

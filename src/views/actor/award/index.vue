@@ -1,3 +1,4 @@
+<!-- 影人详情 奖项荣誉 -->
 <template>
   <page>
     <header-bar title="奖项荣誉" />

@@ -15,10 +15,10 @@
           {{ item.type }} {{ item.win === 0 ? "(提名)" : "(获奖)" }}
         </div>
         <div class="award-actor">
-          <span v-for="(actor, index) in item.actors" :key="actor.id"
-            >{{ actor.name }}
-            {{ item.actors.length - 1 > index ? "/" : "" }}</span
-          >
+          <span v-for="(actor, index) in item.actors" :key="actor.id">
+            {{ actor.name }}
+            {{ item.actors.length - 1 > index ? "/" : "" }}
+          </span>
         </div>
       </div>
     </div>

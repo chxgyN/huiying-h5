@@ -10,7 +10,8 @@
         v-for="item in list"
         :key="item.id"
         v-html="item.content"
-      ></div>
+      >
+      </div>
 
       <m-loadmore :loading="loading" />
     </div>

@@ -1,9 +1,9 @@
 <template>
   <page half round z-index="99" title="新建收藏夹">
     <template v-slot:headerLeft>
-      <m-icon name="close" :size="32" @click="$router.back()" />
+      <m-icon name="arrow-left" :size="32" @click="$router.back()" />
     </template>
-
+    
     <template v-slot:headerRight>
       <div class="create-btn" @click="createUserFavorite()">创建</div>
     </template>
@@ -16,7 +16,9 @@
             maxlength="20"
             placeholder="请输入收藏夹名称"
           />
-          <div class="field-word-count">{{ nameCount }}/20</div>
+          <div class="field-word-count">
+            {{ nameCount }}/20
+          </div>
         </div>
         <div class="field-item">
           <textarea
@@ -57,33 +59,27 @@ export default {
   methods: {
     async createUserFavorite() {
       if (this.loading) return;
-
       if (this.form.name === "") {
         this.$message.warning("请输入收藏夹名称");
         return;
       }
-
+      // 设置duration为 0 点击保存后一直生效，获取完数据手动关闭
       const toast = this.$toast({
         message: "保存中",
         type: "loading",
         duration: 0,
         mask: true,
       });
-
       this.loading = true;
       const { code, data } = await createUserFavorite(this.form);
       this.loading = false;
-
       toast.close();
-
       if (code === 200) {
         this.$toast({
           position: "top",
           message: "创建成功",
         });
-
         this.$emit("on-create");
-
         this.$router.back();
       }
     },

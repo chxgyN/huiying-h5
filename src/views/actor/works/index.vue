@@ -63,16 +63,17 @@ export default {
     };
   },
 
+  // 让标签选择器晚于影视出来
   mounted() {
     setTimeout(() => {
       this.visible = true;
-    }, 600);
+    }, 500);
   },
 
   methods: {
     onChange(value) {
       if (this.form.sortby === value) return;
-
+      // 混入中利用form请求对应数据
       this.page = 1;
       this.list = [];
       this.form.sortby = value;

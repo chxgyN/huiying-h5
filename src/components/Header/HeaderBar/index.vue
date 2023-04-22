@@ -4,11 +4,13 @@
       <div class="back" @click="$router.back()" v-if="back">
         <i class="iconfont" :class="'icon-' + backIcon" />
       </div>
+      <!-- 没有返回 就将标题移前样式 选择 -->
+      <!-- @click="scrollTop()" -->
       <div
         class="header-content"
         :class="{ 'no-back': !back }"
-        @click="scrollTop()"
       >
+      <!-- 判断父组件是否传入默认插槽 -->
         <slot v-if="$slots.default"></slot>
         <div v-else class="title">{{ title }}</div>
       </div>
@@ -81,39 +83,33 @@ export default {
   },
 
   methods: {
-    scrollTop() {
-      if (this.backing) return;
+    // 点击移动至顶部方法
+    // scrollTop() {
+    //   // 正在进行滚动操作 无效返回返回
+    //   if (this.backing) return;
+    //   // el
+    //   const pageEls = [...document.querySelectorAll(".page .page-content")];
+    //   if (pageEls.length) {
+    //     this.el = pageEls[pageEls.length - 1];
+    //   } 
+    //   else {
+    //     this.el = document.documentElement;
+    //   }
+    //   this.toTop();
+    // },
 
-      // el
-      const pageEls = [...document.querySelectorAll(".page .page-content")];
-
-      if (pageEls.length) {
-        this.el = pageEls[pageEls.length - 1];
-      } else {
-        this.el = document.documentElement;
-      }
-
-      this.toTop();
-    },
-
-    toTop() {
-      this.timer && clearInterval(this.timer);
-
-      this.backing = true;
-
-      this.timer = setInterval(() => {
-        let curHeight = this.el.scrollTop;
-
-        let speed = -curHeight / 4;
-        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-
-        if (curHeight === 0) clearInterval(this.timer);
-
-        this.el.scrollTop = curHeight + speed;
-
-        this.backing = false;
-      }, 25);
-    },
+    // toTop() {
+    //   this.timer && clearInterval(this.timer);
+    //   this.backing = true;
+    //   this.timer = setInterval(() => {
+    //     let curHeight = this.el.scrollTop;
+    //     let speed = -curHeight / 4;
+    //     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+    //     if (curHeight === 0) clearInterval(this.timer);
+    //     this.el.scrollTop = curHeight + speed;
+    //     this.backing = false;
+    //   }, 25);
+    // },
   },
 };
 </script>

@@ -84,8 +84,8 @@ Vue.use(ImageGroup);
 import PhotoGroup from "./components/Photo/PhotoGroup/index";
 Vue.use(PhotoGroup);
 
-import PhotoSwiper from "./components/Photo/PhotoSwiper/index";
-Vue.use(PhotoSwiper);
+// import PhotoSwiper from "./components/Photo/PhotoSwiper/index";
+// Vue.use(PhotoSwiper);
 
 // loading skeleton
 import Skeleton from "./components/Skeleton/index";
