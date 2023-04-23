@@ -7,7 +7,9 @@
         <label v-if="movie.rating">{{ movie.rating }}</label>
       </div>
     </div>
-    <h6 class="title">{{ movie.title }}</h6>
+    <h6 class="title">
+      {{ movie.title }}
+    </h6>
   </div>
 </template>
 
@@ -23,6 +25,7 @@ export default {
 
   methods: {
     pathTo() {
+      console.log(this.movie);
       this.$store.commit("SET_MOVIE", this.movie);
       this.$router.push(`/movies/${this.movie.id}`);
     },

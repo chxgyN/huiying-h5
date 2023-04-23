@@ -83,14 +83,10 @@ export default {
     },
 
     async getUserFavorites() {
-      let params = {
-        movie: this.id,
-      };
-
+      let params = { movie: this.id };
       this.loading = true;
       const { code, data } = await getUserFavorites(params);
       this.loading = false;
-
       if (code === 200) {
         this.list = data;
       }

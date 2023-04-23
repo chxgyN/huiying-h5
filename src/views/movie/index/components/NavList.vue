@@ -11,6 +11,11 @@
   </ul>
 </template>
 
+<!-- 
+  父组件通过v-model传值过来，props的value接受
+  子组件的值更改时，通过input emit传递到父组件
+-->
+
 <script>
 export default {
   name: "NavList",
@@ -25,12 +30,13 @@ export default {
     },
   },
 
-  methods: {
-    checkItem(item) {
-      this.$emit("input", item.name);
-      this.$emit("change");
+
+    methods: {
+      checkItem(item) {
+        this.$emit("input", item.name);
+        this.$emit("change");
+      },
     },
-  },
 };
 </script>
 

@@ -49,8 +49,9 @@
 
       <!-- 想看/评分 -->
       <template v-if="!loading">
+        <!-- 未评分 -->
         <div class="btn-group" v-if="!movie.is_rating">
-          <!-- 自定义事件请求 想看状态 -->
+          <!-- 自定义事件请求 更改并更新想看状态 -->
           <div
             class="btn"
             :class="{ 'is-wish': movie.is_wish }"
@@ -58,7 +59,6 @@
           >
             {{ movie.is_wish ? "已想看" : "想看" }}
           </div>
-
           <!-- 未上映的不可选看过 -->
           <div
             v-if="movie.release_status !== 1"
@@ -68,7 +68,6 @@
             看过
           </div>
         </div>
-
         <!-- 已评分 -->
         <div
           class="btn-group has-rating"

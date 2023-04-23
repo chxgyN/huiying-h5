@@ -5,22 +5,16 @@
 
     <header-bar/>
 
-    <!-- swiper -->
-    <!-- <div class="swipe-wrapper" v-if="swipers.length">
-      <home-swiper :data="swipers" @swiper-index-change="onSwiperIndexChange" />
-    </div> -->
-
     <!-- 正在热映 -->
     <!-- slot默认插槽（组件中放内容）抽取共性、用slot占位保留不同 
-    要「重复」使用某个组件 但组件中的一部分内容结构不同-->
-    
+    要「重复」使用某个组件 但组件中的一部分内容结构不同-->  
     <m-panel 
       title="正在热映" 
-      :subtitle="theaters.total + '部'" 
-      to="/theater">
+      to="/theater"
+    >
       <div class="movie-list">
         <movie-row
-          v-for="movie in theaters.data"
+          v-for="movie in theatersFilter"
           :movie="movie"
           :key="movie.id"
         />
@@ -30,11 +24,10 @@
     <!-- 即将上映 -->
     <m-panel 
       title="即将上映" 
-      :subtitle="comings.total + '部'" 
       to="/coming">
       <div class="movie-list">
         <movie-row
-          v-for="movie in comings.data"
+          v-for="movie in comingFilter"
           :movie="movie"
           :key="movie.id"
           is-coming
@@ -45,10 +38,13 @@
     </m-panel>
     
     <!-- 那年今日 -->
-    <m-panel title="那年今日" :subtitle="todays.total + '部'" to="/today">
+    <m-panel 
+      title="那年今日" 
+      to="/today"
+    >
       <div class="movie-list">
         <movie-row
-          v-for="movie in todays.data"
+          v-for="movie in todayFilter"
           :movie="movie"
           :key="movie.id"
         />
@@ -63,11 +59,10 @@
 
 <script>
 import { APP_NAME } from "@/config";
-import { getIndex } from "@/api/api";
+import { getMovieTheater, getMovieComing, getMovieToday} from "@/api/api";
 
 import Skeleton from "./components/Skeleton.vue";
 import HomeMenu from "./components/HomeMenu.vue";
-// import HomeSwiper from "./components/HomeSwiper.vue";
 import HeaderBar from "./components/HeaderBar.vue";
 
 export default {
@@ -76,19 +71,13 @@ export default {
     Skeleton,
     HeaderBar,
     HomeMenu,
-    // HomeSwiper,
   },
   data() {
     return {
       loading: false,
-      // swipers: [],
-      articles: [],
-      todays: {
-        total: "-",
-      },
-      theaters: { total: "-" },
-      comings: { total: "-" },
-      // bgcolor: "",
+      todays: [],
+      theaters: [],
+      comings: [],
     };
   },
 
@@ -117,35 +106,61 @@ export default {
   },
 
   mounted() {
-    this.getIndex();
+    this.getMovieTheater();
+    this.getMovieComing();
+    this.getMovieToday();
+
   },
 
+  computed:{
+    theatersFilter() {
+      return this.theaters.filter(item => {
+        return !item.poster.includes("default")
+      })
+    },
+    comingFilter() {
+      return this.comings.filter(item => {
+        return !item.poster.includes("default")
+      })
+    },
+    todayFilter() {
+      return this.todays.filter(item => {
+        return !item.poster.includes("default")
+      })
+    }
+  },
   methods: {
-    async getIndex() {
+    async getMovieTheater() {
       this.loading = true;
-      const { code, data } = await getIndex();
-
+      const { code, data } = await getMovieTheater();
       if (code === 200) {
-        // this.swipers = data.swiper;
-        this.articles = data.article.data;
-        this.comings = data.coming;
-        this.theaters = data.theater;
-        this.todays = data.today;
+        this.theaters = data;
       }
-
-      // this.onSwiperIndexChange();
-
+      this.$nextTick(() => {
+        this.loading = false;
+      });
+    },
+    async getMovieComing() {
+      this.loading = true;
+      const { code, data } = await getMovieComing();
+      if (code === 200) {
+        this.comings = data;
+      }
+      this.$nextTick(() => {
+        this.loading = false;
+      });
+    },
+    async getMovieToday() {
+      this.loading = true;
+      const { code, data } = await getMovieToday();
+      if (code === 200) {
+        this.todays = data;
+      }
       this.$nextTick(() => {
         this.loading = false;
       });
     },
 
-    // // 根据轮播变换背景色（swiper的index有bug）
-    // onSwiperIndexChange() {
-   
-    //     this.bgcolor = this.swipers[0].bgcolor;
-      
-    // },
   },
 };
 </script>
@@ -155,10 +170,7 @@ export default {
   padding-bottom: 10px;
   background-color: rgb(245,245,245)
   ;
-  .swipe-wrapper {
-    position: relative;
-    height: 380px;
-  }
+
   .movie-list {
     min-height: 335px;
     .coming-date {

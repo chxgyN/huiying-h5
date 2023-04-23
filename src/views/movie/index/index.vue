@@ -60,7 +60,6 @@ export default {
 
     loadMore() {
       if (this.isLock) return;
-
       this.getData(getMovies);
     },
   },

@@ -14,7 +14,6 @@
         "
         @click="handleClick(index + 1)"
       />
-
       <m-icon
         v-if="allowHalf"
         :name="voldIcon"

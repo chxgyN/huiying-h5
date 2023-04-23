@@ -2,20 +2,30 @@
 <template>
   <div class="header-wrapper" ref="header">
     <header class="header">
-      <div class="back" @click="$router.back()">
-        <i class="iconfont icon-back"></i>
-      </div>
+    
+      <!-- isTop是一个滚动值判断，大于这个值为真，小于这个值为假 -->
+      
+      <!-- ！！透明度相同，后面的元素会覆盖前面的元素 -->
 
+      <!-- 滚动背景遮罩 -->
+      <!-- :class="{ 'is-show': !isTop }" -->
+      <!-- bgcolorStyle 
+           如果传过来海报中值颜色，
+           如果没有使用空值 -->
+      <!-- opacity
+           根据高度计算透明度 -->
       <div
         class="header-bg"
-        :class="{ 'is-show': !isTop }"
         :style="bgcolorStyle + opacity"
-      ></div>
+      >
+      </div>
 
+      <!-- 电影两字 -->
       <div class="category" :class="{ 'is-show': isTop }">
         {{ placeholder }}
       </div>
 
+      <!-- 内容区 按钮也在这里-->
       <div class="header-content" :class="{ 'is-show': !isTop }">
         <div class="header-box">
           <div class="header-poster" v-if="poster">
@@ -23,17 +33,20 @@
           </div>
           <div class="header-info">
             <h3 class="title">{{ title }}</h3>
-
             <slot name="subtitle" v-if="$slots.subtitle"></slot>
             <div class="subtitle" v-else>{{ subtitle }}</div>
           </div>
         </div>
-
         <div class="header-slot" :class="{ 'is-share': share }">
-          <slot />
+          <slot/>
         </div>
       </div>
 
+      <div class="back" @click="$router.back()">
+        <i class="iconfont icon-back"></i>
+      </div>
+
+      
       <div class="share" v-if="share" @click="showShare()">
         <m-icon name="share" size="40" />
       </div>
@@ -86,18 +99,18 @@ export default {
   },
   computed: {
     isTop() {
+      console.log(this.scrollTop <= this.headerH);
       return this.scrollTop <= this.headerH;
     },
     bgcolorStyle() {
-      return this.bgcolor ? `background-color: ${this.bgcolor};` : "";
+      return this.bgcolor ? `background-color: ${this.bgcolor};` : `background-color: gray;`;
     },
     opacity() {
       if (this.scrollTop < this.startTop) {
         return `opacity: 0;`;
       }
-
       const rate = this.scrollTop / this.headerH;
-      const opacity = rate > 1 ? 1 : rate;
+      const opacity = rate > 1 ? 1 : rate;  
       return `opacity: ${opacity};`;
     },
   },
@@ -107,12 +120,12 @@ export default {
   // 不需要再次监听
   mounted() {
     this.isBindScroll = true;
-
     this.headerH = document.querySelector(".header").offsetHeight;
-
+    console.log("@@"+this.headerH);
     window.addEventListener("scroll", this.handleScroll);
   },
 
+  // 避免内存泄漏
   beforeDestroy() {
     this.isBindScroll = false;
     window.removeEventListener("scroll", this.handleScroll);
@@ -138,16 +151,11 @@ export default {
     }),
 
     getScrollTop() {
-      let scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       // 只有在滚动范围内时改变 scrollTop 值以优化滚动
       if (this.scrollTopValue <= this.endTop + 20) {
+        console.log(this.scrollTop);
         this.scrollTop = scrollTop;
-      }
-      this.scrollTopValue = scrollTop;
-
-      if (this.scrollTopValue === 0 && this.scrollTop !== 0) {
-        this.scrollTop = 0;
       }
     },
   },
@@ -170,7 +178,7 @@ export default {
     align-items: center;
     flex-shrink: 0;
     .back {
-      z-index: 1;
+
       position: absolute;
       left: 10px;
       top: 0;
@@ -180,6 +188,7 @@ export default {
       align-items: center;
       justify-content: center;
       font-size: 38px;
+      opacity: 1;
     }
 
     .header-bg {
@@ -192,7 +201,7 @@ export default {
       height: 100px;
       transition: opacity 0.15s ease-in-out;
       opacity: 0;
-      background-color: $color-theme;
+      // background-color: $color-theme;
 
       &.is-show {
         opacity: 1;
@@ -223,7 +232,6 @@ export default {
       display: flex;
       justify-content: space-between;
       opacity: 0;
-
       &.is-show {
         opacity: 1;
 

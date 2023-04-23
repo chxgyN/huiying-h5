@@ -1,16 +1,19 @@
 <template>
   <page half round title="我的评分">
-    <template v-slot:header-left>
-      <m-icon name="close" :size="32" @click="$router.back()" />
+    <template v-slot:headerLeft>
+      <m-icon name="arrow-left" :size="32" @click="$router.back()" />
     </template>
 
+    <!-- half并且右上角没有设置内容，会默认显示一个叉叉 -->
     <template v-if="!readonly" v-slot:headerRight>
       <div class="create-btn" @click="createUserMovieRating()">发布</div>
+    </template>
+    <template v-else v-slot:headerRight>
+      <div></div>
     </template>
 
     <div class="rate-content">
       <div class="rate-score">{{ rating }}</div>
-
       <div class="rate">
         <m-rate
           :readonly="readonly"
@@ -29,7 +32,9 @@
             maxlength="200"
             placeholder="分享你的观后感（选填）"
           />
-          <div class="field-word-count">{{ contentCount }}/200</div>
+          <div class="field-word-count">
+            {{ contentCount }}/200
+          </div>
         </div>
       </div>
     </div>
@@ -54,6 +59,7 @@ export default {
   },
 
   computed: {
+    // 判断当前路由url后是否接上了type=edit（query参数
     readonly() {
       return this.$route.query.type === "edit";
     },
@@ -84,35 +90,27 @@ export default {
         this.$toast("请选择评分");
         return;
       }
-
       if (this.loading) return;
-
       if (this.form.rate === 0) {
         this.$message.warning("请选择评分");
         return;
       }
-
       const toast = this.$toast({
         message: "保存中",
         type: "loading",
         duration: 0,
         mask: true,
       });
-
       this.loading = true;
       const { code, data, message } = await createUserMovieRating(this.id, this.form);
       this.loading = false;
-
       toast.close();
-
       if (code === 200) {
         this.$toast({
           position: "top",
           message: "发布成功",
         });
-
         this.$emit("ratingChange");
-
         this.$router.back();
       } else {
         this.$toast(message);

@@ -16,7 +16,6 @@
           <span class="wish-count">{{ movie.wish_count }}</span>
           <span class="wish-label">人想看</span>
         </div>
-
         <div v-else-if="movie.rating">
           <m-rate
             v-model="movie.rating"
@@ -28,7 +27,8 @@
           />
           <span>{{ movie.rating }}</span>
         </div>
-        <div class="movie-subtitle" v-else v-html="movie.title_original"></div>
+        <div class="movie-subtitle" v-else v-html="movie.title_original">
+        </div>
       </template>
 
       <!-- 想看/评分 -->
@@ -50,10 +50,7 @@
       </div>
 
       <!-- 已评分 -->
-      <div class="btn-group has-rating" v-else>
-        <span>我评</span>
-        <label>{{ movie.my_rating.rating }}分</label>
-      </div>
+  
     </header-scroll-bar>
 
     <!-- 基本信息 -->

@@ -11,7 +11,11 @@
       />
 
       <!-- 类型 -->
-      <nav-list v-model="form.genre" :list="genres" @change="changeHandle()" />
+      <nav-list 
+        v-model="form.genre" 
+        :list="genres" 
+        @change="changeHandle()" 
+      />
 
       <!-- 国家/地区 -->
       <nav-list
@@ -21,9 +25,14 @@
       />
 
       <!-- 年份 -->
-      <nav-list v-model="form.year" :list="years" @change="changeHandle()" />
+      <nav-list 
+        v-model="form.year" 
+        :list="years" 
+        @change="changeHandle()" 
+      />
     </div>
 
+    <!-- 点击显示菜单， -->
     <transition name="fade">
       <div
         class="nav-group-fixed"
@@ -58,7 +67,6 @@ export default {
       categories: [],
       countries: [],
       years: [],
-
       form: {
         category: "电影",
         genre: "全部",
@@ -72,33 +80,36 @@ export default {
   },
 
   computed: {
+    // 流派数据
     genres() {
+      // 从目录页面找到选中的分类 返回对应流派数组
       const category = this.categories.find(
         (item) => item.name === this.form.category
       );
       return [{ name: "全部" }, ...(category?.children || [])];
     },
+
     checkedMenus() {
       const genre = this.form.genre === "全部" ? "" : this.form.genre;
       const country = this.form.country === "全部" ? "" : this.form.country;
       const year = this.form.year === "全部" ? "" : this.form.year;
-
-      return `${this.form.category}${genre ? "-" + genre : ""}${
-        country ? "-" + country : ""
-      }${year ? "-" + year : ""}`;
+      return `${this.form.category}
+              ${genre ? "-" + genre : ""}
+              ${country ? "-" + country : ""}
+              ${year ? "-" + year : ""}`;
     },
   },
 
-  watch: {
-    "form.category": {
-      handler(val) {
-        if (!this.genres.includes((item) => item.name === this.genre.name)) {
-          this.genre = "";
-        }
-      },
-      immediate: true,
-    },
-  },
+  // watch: {
+  //   "form.category": {
+  //     handler(val) {
+  //       if (!this.genres.includes((item) => item.name === this.genre.name)) {
+  //         this.genre = "";
+  //       }
+  //     },
+  //     immediate: true,
+  //   },
+  // },
 
   mounted() {
     this.getCategories();
@@ -106,7 +117,6 @@ export default {
     this.$nextTick(() => {
       this.navGroupH = this.$refs.navGroup.offsetHeight;
     });
-
     window.addEventListener("scroll", this.handleScroll);
   },
 
@@ -122,8 +132,8 @@ export default {
 
       if (code === 200) {
         this.navList = data;
+        // 过滤掉分类的全部
         this.categories = data.categories.filter(c => c.name !== "全部");
-        console.log(data.categories);
         this.countries = [{ name: "全部" }, ...data.countries];
         this.years = [{ name: "全部" }, ...data.years];
       }
@@ -138,16 +148,15 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-
       if (scrollTop > this.navGroupH) {
         this.isShowMenu = true;
       } else {
         this.isShowMenu = false;
       }
-
       this.isFixed = false;
     },
 
+    // 点击之后修改isFixed属性，显示页面，滚动事件触发
     // 显示菜单
     showGroupMenu() {
       this.isFixed = true;
@@ -157,7 +166,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.fade-enter-active,
+.fade-enter-active
 .fade-leave-active {
   transition: transform 0.2s;
 }
