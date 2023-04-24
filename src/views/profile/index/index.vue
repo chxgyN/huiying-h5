@@ -38,9 +38,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      user: "user/getUser",
-    }),
+    ...mapGetters({ user: "user/getUser", }),
     isLogin() {
       return !!this.user;
     },

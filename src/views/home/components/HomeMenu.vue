@@ -3,19 +3,19 @@
     <ul class="nav-list">
       <li class="nav-item" @click="$router.push('/theater')">
         <i class="iconfont icon-video"></i>
-        <label>热映中</label>
+        <div>热映中</div>
       </li>
       <li class="nav-item" @click="$router.push('/top')">
         <i class="iconfont icon-level"></i>
-        <label>高分榜</label>
+        <div>高分榜</div>
       </li>
-      <li class="nav-item" @click="$router.push('/awards')">
-        <i class="iconfont icon-trophy"></i>
-        <label>奖项</label>
+      <li class="nav-item" @click="$router.push('/coming')">
+        <i class="iconfont icon-see"></i>
+        <div>即将上映</div>
       </li>
       <li class="nav-item" @click="$router.push('/today')">
         <i class="iconfont icon-date"></i>
-        <label>那年今日</label>
+        <div>那年今日</div>
       </li>
     </ul>
   </div>
@@ -47,20 +47,20 @@ export default {
         font-size: 44px;
         border-radius: 12px;
       }
-      label {
-        display: block;
-        margin-top: 12px;
+      div {
+        margin-top: 8px;
         font-size: 24px;
         height: 40px;
         line-height: 40px;
       }
+      // 匹配li父亲ul的第一个子元素li的子代i
       &:nth-child(1) > i {
-        color: #f8a52d;
-        background: rgba(#f8a52d, 0.15);
-      }
-      &:nth-child(2) > i {
         color: #ff4f4d;
         background: rgba(#ff4f4d, 0.15);
+      }
+      &:nth-child(2) > i {
+        color: #f8a52d;
+        background: rgba(#f8a52d, 0.15);
       }
       &:nth-child(3) > i {
         color: #41acff;

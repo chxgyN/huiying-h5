@@ -84,20 +84,10 @@ Vue.use(ImageGroup);
 import PhotoGroup from "./components/Photo/PhotoGroup/index";
 Vue.use(PhotoGroup);
 
-// import PhotoSwiper from "./components/Photo/PhotoSwiper/index";
-// Vue.use(PhotoSwiper);
 
 // loading skeleton
 import Skeleton from "./components/Skeleton/index";
 Vue.use(Skeleton);
-
-// 全局过滤器
-// import * as filters from './filters/index'
-
-// Object.keys(filters).forEach(key => {
-//   Vue.filter(key, filters[key])
-// })
-
 
 // 阻止页面滚动
 import { preventScroll } from './util/index'

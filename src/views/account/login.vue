@@ -19,6 +19,10 @@
           maxlength="11"
           placeholder="请输入手机号"
         />
+        <div>
+          (体验账号：19823307459)
+        </div>
+      
         <m-icon
           name="cross"
           size="28"
@@ -35,9 +39,11 @@
           maxlength="12"
           placeholder="请输入密码"
         />
+        <div>
+          (账号密码：12345321)
+        </div>
         <m-icon name="see-fill" size="36" @click="togglePassword()" />
       </div>
-
       <div class="submit">
         <m-button type="primary" :loading="loading" @click="doLogin()">
           登 录
@@ -111,27 +117,20 @@ export default {
         this.$toast("请输入手机号");
         return;
       }
-
       if (this.form.password === "") {
         this.$toast("请输入密码");
         return;
       }
-
       this.loading = true;
-
       // 400失败
       try {
         const loginRes = await this.$store.dispatch("user/login", this.form);
-        // console.log(loginRes);
         if (loginRes.code !== 200) {
           this.loading = false;
-          // this.$toast(loginRes.message);
           return;
         }
-
         const userRes = await this.$store.dispatch("user/getInfo");
         this.loading = false;
-
         // 登录成功
         if (userRes.code === 200) {
           this.$toast("登录成功");
@@ -160,14 +159,12 @@ export default {
       color: $color-theme;
     }
   }
-
   .app-welcome {
     margin-top: 80px;
     padding: 0 80px;
     font-size: 48px;
     font-weight: bold;
   }
-
   // 表单
   .form {
     padding: 60px 80px 0;

@@ -3,30 +3,27 @@
     <div class="user-info" v-if="user">
       <div class="user-avatar">
         <img :src="user.avatar" />
-
-        <div
+        <i
           v-if="user.gender === '男'"
           class="user-sex iconfont icon-boy"
-        ></div>
-        <div
+        ></i>
+        <i
           v-else-if="user.gender === '女'"
           class="user-sex iconfont icon-girl"
-        ></div>
+        ></i>
       </div>
 
       <div class="user-intro">
         <div class="user-name">{{ user.username }}</div>
-        <div class="user-signature" v-if="user.signature">
-          {{ user.signature }}
-        </div>
       </div>
     </div>
-
     <div class="user-info" v-else>
       <div class="user-avatar">
         <img src="~images/logo.png" />
       </div>
-      <div class="login-btn" @click="$router.push(`/login`)">立即登录</div>
+      <div class="login-btn" @click="$router.push(`/login`)">
+        立即登录
+      </div>
     </div>
   </div>
 </template>
@@ -108,13 +105,9 @@ export default {
       font-size: 36px;
       font-weight: 600;
     }
-    .user-signature {
-      margin-top: 5px;
-      color: #eee;
-    }
   }
   .login-btn {
-    margin-left: 20px;
+    margin-left: 5px;
     color: #fff;
     font-size: 32px;
     padding: 20px;

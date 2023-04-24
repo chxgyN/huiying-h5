@@ -4,7 +4,6 @@
 
     <m-cell-group border>
       <m-cell title="应用名" :value="APP_NAME" />
-      <!-- <m-cell title="开发者" :value="DEVELOPER" /> -->
       <m-cell title="版本号" :value="VERSION" />
     </m-cell-group>
 

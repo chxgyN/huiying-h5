@@ -6,7 +6,6 @@ Vue.use(VueRouter)
 import main from './main'
 import movie from './movie'
 import actor from './actor'
-import award from './award'
 import profile from './profile'
 
 const routes = [
@@ -18,7 +17,6 @@ const routes = [
   ...main,
   ...movie,
   ...actor,
-  ...award,
   ...profile,
 
   // 搜索
@@ -42,23 +40,12 @@ const routes = [
     name: "Top",
     component: () => import('@/views/movie/top')
   },
-  { // 获奖
-    path: '/award',
-    name: "AwardList",
-    component: () => import('@/views/award/index')
-  },
+
   { // 那年今日
     path: '/today',
     name: "Today",
     component: () => import('@/views/movie/today')
   },
-  // 相册
-  // {
-  //   path: '/:type/:id/photos',
-  //   props: true,
-  //   name: "Photos",
-  //   component: () => import('@/views/photo/index')
-  // },
   // 注册登录找回密码
   {
     path: '/login',

@@ -68,7 +68,7 @@ export default {
   padding: 0 20px;
   display: flex;
   align-items: center;
-  // 回溯一层
+  // 回溯一层 匹配没有istop属性的header-bar
   &:not(.is-top) {
     background-color: #fff;
     box-shadow: 0 1px 2px #e5e5e5;

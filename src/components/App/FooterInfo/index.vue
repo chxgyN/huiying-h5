@@ -1,6 +1,7 @@
 <template>
   <!-- logo信息 -->
   <div class="app-info">
+    <!-- 波浪号代表webpack根路径开始解析 -->
     <img class="app-logo" src="~images/logo.png" alt="" />
     <div class="app-name">{{ APP_NAME }}</div>
   </div>

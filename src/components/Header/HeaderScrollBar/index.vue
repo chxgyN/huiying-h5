@@ -99,7 +99,7 @@ export default {
   },
   computed: {
     isTop() {
-      console.log(this.scrollTop <= this.headerH);
+      // console.log(this.scrollTop <= this.headerH);
       return this.scrollTop <= this.headerH;
     },
     bgcolorStyle() {
@@ -121,7 +121,7 @@ export default {
   mounted() {
     this.isBindScroll = true;
     this.headerH = document.querySelector(".header").offsetHeight;
-    console.log("@@"+this.headerH);
+    // console.log("@@"+this.headerH);
     window.addEventListener("scroll", this.handleScroll);
   },
 
@@ -154,7 +154,7 @@ export default {
       let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       // 只有在滚动范围内时改变 scrollTop 值以优化滚动
       if (this.scrollTopValue <= this.endTop + 20) {
-        console.log(this.scrollTop);
+        // console.log(this.scrollTop);
         this.scrollTop = scrollTop;
       }
     },
