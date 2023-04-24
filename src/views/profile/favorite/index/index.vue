@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <header-bar title="我的收藏夹" />
-    <!-- 加载动画 -->
+    <!-- 加载动画 骨架屏-->
     <div class="skeleton-wrapper" v-if="loading">
       <div class="skeleton">
-        <div class="skeleton-item" v-for="n in 7" :key="n">
+        <div class="skeleton-item" v-for="n in 9" :key="n">
           <div class="item-poster"></div>
           <div class="item-info">
             <div class="item-info-title"></div>
@@ -36,10 +36,10 @@
 
     <no-data v-if="total === 0 && !loading">
       <div class="no-data">
-        您还没有收藏夹，立即<span
-          @click="$router.push('/profile/favorites/create')"
-          >创建</span
-        >？
+        您还没有收藏夹，立即
+        <span @click="$router.push('/profile/favorites/create')">
+          创建
+        </span>？
       </div>
     </no-data>
 
@@ -95,6 +95,7 @@ export default {
   .skeleton-wrapper {
     z-index: 2;
     position: fixed;
+    margin-top: 68px;
     left: 0;
     top: 100px;
     right: 0;

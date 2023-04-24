@@ -35,7 +35,7 @@
       </div>
       <div class="info-item ellipsis">{{ movie.genres }}</div>
       <div class="info-item ellipsis">{{ movie.countries }}</div>
-      <!-- <slot/> -->
+      <slot/>
     </div>
   </div>
 </template>

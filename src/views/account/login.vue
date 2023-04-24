@@ -18,11 +18,7 @@
           autocomplete="off"
           maxlength="11"
           placeholder="请输入手机号"
-        />
-        <div>
-          (体验账号：19823307459)
-        </div>
-      
+        />  
         <m-icon
           name="cross"
           size="28"
@@ -39,9 +35,6 @@
           maxlength="12"
           placeholder="请输入密码"
         />
-        <div>
-          (账号密码：12345321)
-        </div>
         <m-icon name="see-fill" size="36" @click="togglePassword()" />
       </div>
       <div class="submit">
@@ -51,14 +44,14 @@
       </div>
     </div>
 
-    <div class="tool">
+    <!-- <div class="tool">
       <div class="register" @click="$router.replace('./register')">
         账号注册
       </div>
       <div class="forget" @click="$router.push('./forget')">
         找回密码
       </div>
-    </div>
+    </div> -->
 
     <div class="login-info" >
       Copyright © 2018-2023 chxygn.com 版权所有<br />
@@ -74,8 +67,8 @@ export default {
     return {
       loading: false,
       form: {
-        account: "",
-        password: "",
+        account: "19823307459",
+        password: "12345321",
       },
       isShowPassword: false,
       // isShow: true,

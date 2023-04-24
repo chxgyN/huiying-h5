@@ -1,17 +1,17 @@
 <template>
   <div class="menu-list">
     <div class="menu-item" @click="pathTo('actors')">
-      <div class="menu-count" v-if="!isLogin">{{ count.actor_count }}</div>
+      <div class="menu-count" v-if="!isLogin"> - </div>
       <m-icon name="user" color="#EE5C42" v-else/>
       <div class="menu-font-name">关注影人</div>
     </div>
     <div class="menu-item" @click="pathTo('information')">
-      <div class="menu-count" v-if="!isLogin">{{ count.information_count}}</div>
+      <div class="menu-count" v-if="!isLogin"> - </div>
       <m-icon name="tag" color="#EE5C42" v-else/>
       <div class="menu-font-name">我的资料</div>
     </div>
     <div class="menu-item" @click="pathTo('favorites')">
-      <div class="menu-count" v-if="!isLogin">{{ count.favorites_count }}</div>
+      <div class="menu-count" v-if="!isLogin"> - </div>
       <m-icon name="star" color="#EE5C42" v-else/>
       <div class="menu-font-name">影片收藏</div>
     </div>
@@ -22,10 +22,10 @@
 export default {
   name: "MineMenu",
   props: {
-    count: {
-      type: Object,
-      required: true,
-    },
+    // count: {
+    //   type: Object,
+    //   required: true,
+    // },
     isLogin: {
       type: Boolean,
     },
@@ -34,7 +34,6 @@ export default {
     pathTo(type) {
       if (this.isLogin) {
         this.$router.push(`/profile/${type}`);
-        // console.log(this.count)
       } else {
         this.$router.push(`/login`);
       }

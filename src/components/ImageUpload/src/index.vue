@@ -25,9 +25,9 @@
       </div>
       <span slot="footer">
         <m-button @click="isShowAvatar = false">取 消</m-button>
-        <m-button type="primary" @click="cropImage()" :loading="uploading"
-          >确 定</m-button
-        >
+        <m-button type="primary" @click="cropImage()" :loading="uploading">
+          确 定
+        </m-button>
       </span>
     </div>
   </div>
@@ -69,44 +69,34 @@ export default {
   methods: {
     // 触发选择文件事件
     chosenFileHandle() {
-      this.avatarImg = "";
-
+      this.avatarImg = "";  
       let evt = new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
         view: window,
       });
-
       this.$refs.fileInput.dispatchEvent(evt);
     },
 
     // 选择图片
     fileChangeHandle(evt) {
       if (!evt.target.files || !evt.target.files[0]) return;
-
       const file = evt.target.files[0];
-
       if (file.size > 1024 * 1024 * 10) {
         this.$message.warning("头像图片不能超过 10MB");
         return;
       }
-
       if (file.size < 1024 * 2) {
         this.$message.warning("头像图片不能小于 2KB");
         return;
       }
-
       let url = URL.createObjectURL(file);
-
       let img = new Image();
       img.onload = () => {
         URL.revokeObjectURL(url);
       };
-
       this.isShowAvatar = true;
-
       this.avatarImg = url;
-
       this.$router.push("#avatar");
     },
 
@@ -121,9 +111,7 @@ export default {
     // 头像上传
     async handleInsertImg(file) {
       this.uploading = true;
-
       const { code, data } = await getQiniuUpToken();
-
       if (code === 200) {
         const token = data;
         const key = null;
@@ -136,7 +124,6 @@ export default {
           useCdnDomain: true, //使用cdn加速
         };
         const observable = qiniu.upload(file, key, token, putExtra, config);
-
         observable.subscribe({
           next: (result) => {
             // 主要用来展示进度
@@ -146,7 +133,6 @@ export default {
             this.$message.danger("上传图片失败");
             this.uploading = false;
           },
-
           complete: ({ key }) => {
             let url = `${FILE_DOMAIN}/${key}@avatar`;
             this.isShowAvatar = false;

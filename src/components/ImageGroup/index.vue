@@ -3,17 +3,17 @@
     <div class="list" v-if="images.length">
       <img
         class="image-item"
-        v-for="(src, index) in photos"
+        v-for="(src, index) in images"
         :class="'item_' + index"
         v-lazy="src"
         :key="index"
       />
     </div>
-    <img
+    <!-- <img
       class="no-image"
       v-else
-      src="https://img.ixook.com/image/default.jpg@avatar"
-    />
+      src=""
+    /> -->
   </div>
 </template>
 
@@ -74,7 +74,7 @@ export default {
         bottom: 0;
         width: 88px;
         height: 123px;
-        opacity: 0.4;
+        opacity: 0.5;
       }
     }
   }

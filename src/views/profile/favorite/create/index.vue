@@ -79,6 +79,7 @@ export default {
           position: "top",
           message: "创建成功",
         });
+        // 电影详情页面创建收藏夹的router-view
         this.$emit("on-create");
         this.$router.back();
       }

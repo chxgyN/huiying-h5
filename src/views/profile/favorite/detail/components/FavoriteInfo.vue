@@ -14,6 +14,7 @@
         <div class="favorite-brief">{{ favorite.brief }}</div>
       </div>
 
+      <!-- 父组件loading时就不渲染 -->
       <m-icon
         v-if="!$parent.loading"
         class="edit"
@@ -35,7 +36,6 @@
 
 <script>
 import { deleteUserFavorite } from "@/api/user";
-
 export default {
   name: "FavoriteInfo",
 
@@ -59,7 +59,6 @@ export default {
         {
           name: "删除",
           color: "#ed3f14",
-          loading: false,
         },
       ],
     };
@@ -72,7 +71,6 @@ export default {
 
     handleClickItem(index) {
       this.visible = false;
-
       switch (index) {
         case 0:
           this.$router.push(`/profile/favorites/${this.id}/edit`);
@@ -92,18 +90,14 @@ export default {
           confirmButtonText: "删除",
           asyncClose: true,
         });
-
         const { code, data } = await deleteUserFavorite(this.id);
         instance.loading = false;
-
         if (code === 200) {
           this.$message({
             content: "删除成功！",
             type: "success",
           });
-
           instance.close();
-
           this.$router.back();
         }
       } catch (e) {
@@ -161,7 +155,7 @@ export default {
     left: 0;
     top: 0;
     width: 100%;
-    background: #d67624;
+    background: #6c6a68;
     height: 320px;
     overflow: hidden;
   }
@@ -180,22 +174,22 @@ export default {
     right: -120px;
     bottom: -120px;
   }
-  .banner__round::after {
-    display: block;
-    content: "";
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    position: absolute;
-  }
-  .banner__round--left::after {
-    right: -50px;
-    top: 160px;
-  }
-  .banner__round--right::after {
-    left: 60px;
-    top: -30px;
-  }
+  // .banner__round::after {
+  //   display: block;
+  //   content: "";
+  //   width: 100px;
+  //   height: 100px;
+  //   border-radius: 50%;
+  //   background: rgba(255, 255, 255, 0.1);
+  //   position: absolute;
+  // }
+  // .banner__round--left::after {
+  //   right: -50px;
+  //   top: 160px;
+  // }
+  // .banner__round--right::after {
+  //   left: 60px;
+  //   top: -30px;
+  // }
 }
 </style>

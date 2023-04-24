@@ -15,7 +15,6 @@
         <m-cell
           title="性别"
           :value="user.gender"
-          @click="isShowGender = true"
         />
       </m-cell-group>
     </div>
@@ -37,15 +36,6 @@
         <span class="count">{{ username.length }}/10</span>
       </div>
     </m-modal>
-
-    <!-- 性别 -->
-    <m-action-sheet
-      show-cancel
-      :visible="isShowGender"
-      :actions="genders"
-      @cancel="isShowGender = false"
-      @click="handleClickItem"
-    />
   </page>
 </template>
 
@@ -59,19 +49,7 @@ export default {
   data() {
     return {
       isShowUsername: false,
-      isShowGender: false,
       username: "",
-      genders: [
-        {
-          name: "保密",
-        },
-        {
-          name: "男",
-        },
-        {
-          name: "女",
-        },
-      ],
     };
   },
 
@@ -92,7 +70,6 @@ export default {
     showUsername() {
       this.username = this.user.username;
       this.isShowUsername = true;
-
       this.$nextTick(() => {
         this.$refs.username.focus();
       });
@@ -108,30 +85,17 @@ export default {
         this.$message.warning("用户名不能超过10个字符");
         return;
       }
-
       this.user.username = this.username;
       this.updateUserInfo();
-
       this.isShowUsername = false;
     },
-
-    // 性别
-    handleClickItem(index) {
-      this.user.gender = this.genders[index].name;
-      this.updateUserInfo();
-
-      this.isShowGender = false;
-    },
-
 
     // 更新用户信息
     async updateUserInfo() {
       let params = this.user;
-
       this.submitLoading = true;
       const { code } = await updateUserInfo(params);
       this.submitLoading = false;
-
       if (code === 200) {
         this.$store.commit("user/SET_USER", Object.assign({}, this.user));
         this.$toast("更新成功");

@@ -1,9 +1,8 @@
 <template>
   <div class="container">
     <user-info :user="user" />
-    <user-menu :count="count" :is-login="isLogin" />
+    <user-menu :is-login="isLogin" />
     <user-cell :user="user" />
-
     <transition name="slide-left">
       <router-view />
     </transition>
@@ -12,8 +11,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getUserCollectionCount } from "@/api/user";
-
 import UserInfo from "./components/MineInfo";
 import UserMenu from "./components/MineMenu";
 import UserCell from "./components/MineCell";
@@ -27,28 +24,11 @@ export default {
     UserCell,
   },
 
-  data() {
-    return {
-      count: {
-        actor_count: "-",
-        information_count: "-",
-        favorites_count: "-",
-      },
-    };
-  },
-
   computed: {
     ...mapGetters({ user: "user/getUser", }),
     isLogin() {
+      // 就是转换为布尔值
       return !!this.user;
-    },
-  },
-
-  watch: {
-    isLogin(val) {
-      if (!val) {
-        this.count = this.$options.data().count;
-      }
     },
   },
 
@@ -58,28 +38,7 @@ export default {
 
   activated() {
     document.title = "我的";
-
-    if (this.isLogin) {
-      this.getUserCollectionCount();
-    }
   },
 
-  mounted() {
-    if (this.isLogin) {
-      this.getUserCollectionCount();
-    }
-  },
-
-  methods: {
-    async getUserCollectionCount() {
-      this.countLoading = true;
-      const { code, data } = await getUserCollectionCount();
-      this.countLoading = false;
-
-      if (code === 200) {
-        this.count = data;
-      }
-    },
-  },
 };
 </script>

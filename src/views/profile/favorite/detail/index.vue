@@ -15,11 +15,10 @@
       <div class="favorite-list" v-infinite-scroll="loadMore">
         <movie-item v-for="movie in list" :key="movie.id" :movie="movie">
           <div class="movie-tool">
-            <span>收藏于{{ movie.saved_at }}</span>
+            <span></span>
             <m-icon name="more" @click="showMore($event, movie)" />
           </div>
         </movie-item>
-
         <m-loadmore :loading="loading" />
       </div>
     </div>
@@ -82,6 +81,7 @@ export default {
 
   computed: {
     photos() {
+      // 获取索引小于3的海报
       return this.list.filter((m, idx) => idx < 3).map((m) => m.poster);
     },
   },
@@ -103,13 +103,13 @@ export default {
       this.favoriteLoading = true;
       const { code, data } = await getUserFavorite(this.id);
       this.favoriteLoading = false;
-
       if (code === 200) {
         this.favorite = data;
       }
     },
 
     showMore(event, movie) {
+      console.log(event, movie);
       this.movie = movie;
       this.visible = true;
       event.stopPropagation();
@@ -118,20 +118,25 @@ export default {
     async handleClickItem(index) {
       if (index === 0) {
         this.actions[0].loading = true;
-        const { code, data, message } = await deleteUserFavoriteMovies(this.id, this.movie.union_id);
+        // id是收藏夹的id；union_id是影视id
+        const { code, data, message } = await deleteUserFavoriteMovies(
+          this.id, 
+          this.movie.union_id
+        );
+        console.log(...this.list );
         this.actions[0].loading = false;
-
         if (code === 200) {
           this.$toast(message);
-
           const index = this.list.findIndex(
-            (m) => m.union_id === this.movie.union_id
+            (m) => 
+            m.union_id === this.movie.union_id
           );
+          // 从list中删除，渲染更新后的list和总个数
           if (index > -1) {
             this.list.splice(index, 1);
             this.favorite.count = --this.favorite.count;
+            console.log(...this.list);
           }
-
           this.visible = false;
         }
       }

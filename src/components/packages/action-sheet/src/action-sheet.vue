@@ -1,12 +1,16 @@
 <template>
   <div class="m-actionsheet__wrap">
+    <!-- 遮罩效果 -->
+    <!-- 固定定位 透明度1 层级  visibility隐藏显示-->
     <div
       class="m-mask"
       :class="{ 'is-hidden': !visible }"
       :style="'z-index: ' + zIndex"
       @click="handleMaskClick"
-    ></div>
-
+    >
+    </div>
+    <!-- 选项按钮 -->
+    <!-- 后出现覆盖前面出现的 -->
     <div
       class="m-sheet"
       :class="{ 'is-hidden': !visible }"
@@ -16,6 +20,7 @@
         <slot name="header" />
       </div>
 
+      <!-- 选项按钮 -->
       <div class="m-sheet__content">
         <div
           class="m-sheet__item m-hairline--bottom"
@@ -30,11 +35,13 @@
             :disabled="item.disabled"
             :color="item.color"
             @click="handleItemClick(item, index)"
-            >{{ item.name }}</m-button
           >
+            {{ item.name }}
+          </m-button>
         </div>
       </div>
-
+      
+      <!-- 取消按钮 -->
       <div class="m-sheet__cancel" v-if="showCancel">
         <m-button
           m-class="m-sheet__button"
@@ -42,8 +49,9 @@
           type="ghost"
           full
           @click="handleCancelClick"
-          >{{ cancelText }}</m-button
         >
+          {{ cancelText }}
+        </m-button>
       </div>
     </div>
   </div>
@@ -93,7 +101,6 @@ export default {
     // 点击事件
     handleItemClick(item, index) {
       if (item.loading || item.disabled) return;
-
       this.$emit("click", index);
     },
 
@@ -107,6 +114,7 @@ export default {
 
 <style lang="scss">
 .m-actionsheet__wrap {
+  // fixed不脱离标准流
   .m-mask {
     z-index: 2001;
     position: fixed;
@@ -114,10 +122,10 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 1;
+    opacity: 0.8;
     visibility: visible;
     background-color: var(--color-mask);
-    transition: all 0.2s ease-in-out;
+    transition: all 0.6s ease-in-out;
     &.is-hidden {
       opacity: 0;
       visibility: hidden;
