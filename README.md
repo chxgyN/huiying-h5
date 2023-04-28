@@ -17,13 +17,13 @@ npm run build
 ```
 
 ## 项目截图
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428113548.png)
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428113827.png)
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428113908.png)
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114450.png)
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114809.png)
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114912.png)
-![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114948.png)
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428113548.png)  
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428113827.png)  
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428113908.png)  
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114450.png)  
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114809.png)  
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114912.png)  
+![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428114948.png)  
 ![image](https://github.com/chxgyN/huiying-h5/blob/main/img/QQ%E6%88%AA%E5%9B%BE20230428115024.png)
 
 ## 联系作者
