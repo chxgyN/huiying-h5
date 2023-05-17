@@ -5,6 +5,12 @@
     </div>
 
     <!-- 头像图片选择 -->
+    <!-- 
+      type为 file点击事件会打开文件
+      选择完图片后
+      input的value值会自动更新成选择图片路径
+      此时会触发change事件 
+    -->
     <input
       type="file"
       name="file"
@@ -14,21 +20,24 @@
       @change="fileChangeHandle"
     />
 
-    <!-- 头像上传 -->
+    <!-- 头像裁剪 -->
     <div class="avatar-modal" v-if="isShowCrop">
       <div class="crop-image">
         <crop-image
           ref="cropImage"
           @on-change="submitAvatar"
           :img="avatarImg"
+          :loading="uploading"
         />
       </div>
-      <span slot="footer">
-        <m-button @click="isShowAvatar = false">取 消</m-button>
+      <!-- <span slot="footer">
+        <m-button @click="isShowAvatar = false">
+          取 消
+        </m-button>
         <m-button type="primary" @click="cropImage()" :loading="uploading">
           确 定
         </m-button>
-      </span>
+      </span> -->
     </div>
   </div>
 </template>
@@ -70,17 +79,20 @@ export default {
     // 触发选择文件事件
     chosenFileHandle() {
       this.avatarImg = "";  
+      // 初始化触发 input 标签的点击事件
       let evt = new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
         view: window,
       });
+      // 将点击事件派发给 input 标签，触发 input 标签点击事件
       this.$refs.fileInput.dispatchEvent(evt);
     },
 
-    // 选择图片
+    // 选择完图片后确定就触发
     fileChangeHandle(evt) {
-      if (!evt.target.files || !evt.target.files[0]) return;
+      // 保证数组小于等于1并且第一个值不为空
+      if (evt.target.files.length > 1 || !evt.target.files[0]) return;
       const file = evt.target.files[0];
       if (file.size > 1024 * 1024 * 10) {
         this.$message.warning("头像图片不能超过 10MB");
@@ -89,27 +101,37 @@ export default {
       if (file.size < 1024 * 2) {
         this.$message.warning("头像图片不能小于 2KB");
         return;
-      }
-      let url = URL.createObjectURL(file);
-      let img = new Image();
-      img.onload = () => {
-        URL.revokeObjectURL(url);
-      };
-      this.isShowAvatar = true;
-      this.avatarImg = url;
+      } 
+      // 因为有模态框所以不需要预览显示
+      // 页面预览图片
+      // let url = URL.createObjectURL(file);
+      // // 加载显示图片
+      // let img = new Image();
+      // // 加载完毕后释放
+      // img.onload = () => {
+      //   URL.revokeObjectURL(url);
+      // };
+      // // 显示头像预览效果
+      // this.isShowAvatar = true;
+      this.avatarImg = URL.createObjectURL(file);
+      // url中追加#avatar,计算属性判断是否显示模态框
       this.$router.push("#avatar");
     },
 
-    cropImage() {
-      this.$refs.cropImage.clipImage();
-    },
+    // cropImage() {
+    //   this.$refs.cropImage.clipImage();
+    // },
 
     submitAvatar(file) {
       this.handleInsertImg(file);
     },
 
     // 头像上传
+    // 在handleInsertImg方法中，调用getQiniuUpToken接口获取七牛云上传凭证。
+    // 将裁剪后的图片文件上传到七牛云服务器，上传成功后获取图片的url，并通过$emit方法将url传递给父组件。
+    // 上传成功后，关闭模态框，并通过$router.back()返回上一页。
     async handleInsertImg(file) {
+      if(this.uploading == true) return
       this.uploading = true;
       const { code, data } = await getQiniuUpToken();
       if (code === 200) {
@@ -123,12 +145,10 @@ export default {
         const config = {
           useCdnDomain: true, //使用cdn加速
         };
+        // qiniu.upload 返回一个 observable 对象用来控制上传行为
         const observable = qiniu.upload(file, key, token, putExtra, config);
+        // 开始上传
         observable.subscribe({
-          next: (result) => {
-            // 主要用来展示进度
-            // console.warn(result);
-          },
           error: () => {
             this.$message.danger("上传图片失败");
             this.uploading = false;
@@ -136,16 +156,14 @@ export default {
           complete: ({ key }) => {
             let url = `${FILE_DOMAIN}/${key}@avatar`;
             this.isShowAvatar = false;
-
             this.uploading = false;
-
             this.$emit("on-change", url);
-
             this.$router.back();
           },
         });
       } else {
         this.uploading = false;
+        this.$message.warning(code);
       }
     },
   },

@@ -11,7 +11,6 @@
     <template v-else v-slot:headerRight>
       <div></div>
     </template>
-
     <div class="rate-content">
       <div class="rate-score">{{ rating }}</div>
       <div class="rate">

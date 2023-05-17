@@ -6,25 +6,15 @@ import { APP_NAME } from './config'
 
 import './assets/styles/index.css'
 
-import a from '@/components/packages'
-Vue.use(a);
-
-// px2rem css
 import 'lib-flexible/flexible'
-
-// 上拉加载指令
-import infiniteScroll from "./directive/infinite-scroll";
-Vue.use(infiniteScroll)
 
 // 懒加载
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload);
 
-// 页眉
 import HeaderBar from '@/components/Header/HeaderBar/index'
 Vue.use(HeaderBar)
 
-// 根据滚动变化页眉
 import HeaderScrollBar from '@/components/Header/HeaderScrollBar/index'
 Vue.use(HeaderScrollBar)
 
@@ -32,72 +22,58 @@ Vue.use(HeaderScrollBar)
 import Page from '@/components/Page'
 Vue.use(Page)
 
-// 
+// 面板组件
 import MPanel from '@/components/MPanel'
 Vue.use(MPanel)
 
-// 影人列
 import ActorItem from '@/components/Actor/ActorItem/index'
 Vue.use(ActorItem)
 
-// 影人行
 import ActorRow from '@/components/Actor/ActorRow/index'
 Vue.use(ActorRow)
 
-// 影视行
 import MovieRow from '@/components/Movie/MovieRow/index'
 Vue.use(MovieRow)
 
-// 影视列
 import MovieItem from '@/components/Movie/MovieItem/index'
 Vue.use(MovieItem)
 
-// 影人骨架屏
+// 骨架屏
 import MovieSkeleton from '@/components/Movie/Skeleton'
 Vue.use(MovieSkeleton)
 
-// 影视信息卡
 import MovieCard from '@/components/Movie/MovieCard/index'
 Vue.use(MovieCard)
 
-// switch 样式的 tab 切换
+import infiniteScroll from "./directive/infinite-scroll";
+Vue.use(infiniteScroll)
+
 import TabSwitch from '@/components/TabSwitch/index'
 Vue.use(TabSwitch)
 
-// app info
 import FooterInfo from '@/components/App/FooterInfo'
 Vue.use(FooterInfo)
 
-// 无数据
 import NoData from '@/components/NoData'
 Vue.use(NoData)
 
-// 图片上传
 import ImageUpload from "./components/ImageUpload/index";
 Vue.use(ImageUpload);
 
-// 图片组
 import ImageGroup from "./components/ImageGroup/index";
 Vue.use(ImageGroup);
 
-// 图片预览
-import PhotoGroup from "./components/Photo/PhotoGroup/index";
-Vue.use(PhotoGroup);
-
-
-// loading skeleton
 import Skeleton from "./components/Skeleton/index";
 Vue.use(Skeleton);
 
-// 阻止页面滚动
 import { preventScroll } from './util/index'
-// import MCell from './components/packages/cell'
 Vue.prototype.$preventScroll = preventScroll;
 
+import components from '@/components/packages'
+Vue.use(components);
 
 // 应用名称
 Vue.prototype.$APP_NAME = APP_NAME
-
 
 Vue.config.productionTip = false
 

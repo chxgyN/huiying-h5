@@ -17,7 +17,6 @@ export default {
       type: String,
       required: true,
     },
-
     size: {
       type: [Number, String],
       default: 36,
@@ -34,13 +33,12 @@ export default {
       const size = this.size / 75 + "rem";
       let font = "font-size: " + size;
       styles.push(font);
-
       if (this.color) {
         styles.push("color:" + this.color);
       }
-
       return styles.join(";");
     },
+
     isImage() {
       return this.name.includes("/");
     },
@@ -55,8 +53,8 @@ export default {
     },
   },
   methods: {
-    onClick(e) {
-      this.$emit("click", e);
+    onClick() {
+      this.$emit("click");
     },
   },
 };

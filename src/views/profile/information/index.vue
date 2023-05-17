@@ -9,7 +9,7 @@
         </m-cell>
         <m-cell title="用户名" :value="user.username" @click="showUsername" />
       </m-cell-group>
-
+      
       <m-cell-group border class="group-two">
         <m-cell title="手机号" :value="user.phone" />
         <m-cell

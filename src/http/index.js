@@ -5,7 +5,6 @@ import { HOST } from '@/config'
 //js文件中使用但不use
 import Toast from '@/components/packages/toast'
 
-
 // 默认配置,作用于每个请求 axios 配置
 axios.defaults.timeout = 20000
 axios.defaults.baseURL = HOST
@@ -88,11 +87,9 @@ axios.interceptors.response.use(res => {
           path: '/login',
           query: { redirect: router.currentRoute.fullPath }
         })
-      
       // code 401 message a...
       return error.response.data
     }
-
     Toast(status + ' ' + statusText)
   }
 

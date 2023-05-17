@@ -6,7 +6,9 @@
     </div>
 
     <!-- props没有传递title属性，寻找title的具名插槽 -->
-    <div v-if="title" class="m-cell__title">{{ title }}</div>
+    <div v-if="title" class="m-cell__title">
+      {{ title }}
+    </div>
     <slot v-else name="title" />
 
     <div v-if="value" class="m-cell__desc" :class="{ 'is-ellipsis': ellipsis }">
@@ -15,7 +17,6 @@
     <div v-else class="slot">
       <slot/>
     </div>
-
     <m-icon
       v-if="url"
       class="m-cell__footer"

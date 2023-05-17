@@ -60,17 +60,6 @@
         />
       </div>
 
-      <!-- 角色搜索结果 -->
-      <!-- <div class="role-result" v-show="type === 'role'">
-        <role-item
-          @on-checked="checkedHandle(role.name)"
-          v-for="role in roles"
-          :role="role"
-          :key="role.id"
-          :keyword="keyword"
-        />
-      </div> -->
-
       <m-loadmore v-if="!isShowNoData" :loading="loading" />
     </div>
   </div>
@@ -144,7 +133,6 @@ export default {
     typeChange(type) {
       // 保存当前页面滑动高度
       const scrollTop =  document.documentElement.scrollTop || document.body.scrollTop;
-      // console.log("@"+scrollTop);
       this[this.type + "Top"] = scrollTop;
 
       this.type = type;
@@ -169,37 +157,23 @@ export default {
       // req2发出请求第210ms发出 第290ms接受
     async search() {
       if (this[this.type + "NoMoreData"] === true) return;
-      // movieNoMoreData的属性值
-      // console.log(this[this.type + "NoMoreData"])
-     
       this.loading = true;
-
-      // 通过axios创建一个canceltoken实例
+      // 通过axios创建一个canceltoken类
       let CancelToken = axios.CancelToken;
-      
       let _this = this;
      
       // 取消方法存在,执行取消
       // 首次输入无此方法,等待初始工作完毕以后,执行await后面创建取消函数
       // 因为第一次不存在上次请求
+
       if (this.cancel) {
         this.cancel();
       }
-
-      // function cancel(message) {
-      //   if (token.reason) {
-      //     // Cancellation has already been requested
-      //     return;
-      //   }
-
-      //   token.reason = new Cancel(message);
-      //   resolvePromise(token.reason);
-      // }
       
       let page;
       if (this.type === "actor") {
         page = this.actorPage; 
-      }else {
+      } else {
         page = this.moviePage;
       }
 
@@ -209,16 +183,15 @@ export default {
         type: this.type,
       };
       
+      // 响应码,数据,数据总数
       const { code, data, total } = await axios.get(`/search`, {
         params,
         cancelToken: new CancelToken(function executor(c) {
           _this.cancel = c;
         }),
       })
-      // 响应码,数据,数据总数
-      // console.log(code,data,total)
+
       // 调用this.cancel()取消请求
-      console.log(code);
       if (code === 200) {
         switch (this.type) {
           case "actor":
@@ -233,12 +206,10 @@ export default {
             this.movieTotal = total;
             break;
         }
-
         if (data.length < this.per_page) {
           this[this.type + "NoMoreData"] = true;
         }
       }
-
       this.loading = false;
     },
   },

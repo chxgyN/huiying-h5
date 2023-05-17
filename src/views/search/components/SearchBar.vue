@@ -3,17 +3,18 @@
     <div class="search">
       <div class="search-form">
         <i class="iconfont icon-search"></i>
-        <!-- 点击回车会触发表单提交，该事件会导致页面刷新
-          阻止表单提交-->
+        <!-- 
+          点击回车会触发表单提交
+          该事件会导致页面刷新
+          阻止表单提交
+        -->
         <form @submit.prevent>
-          <!-- @input="$emit('input', $event.target.value)" -->
-          <!-- input标签的value被修改时，会被触发 -->
-          
+          <!--input发生输入事件时，调用自定义事件，将当前输入的value传递 -->
           <input
             ref="input"
             type="search"
             :value="value"
-            @input=input($event)
+            @input="$emit('input', $event.target.value)"
             placeholder="搜影视 / 影人 "
           />
         </form>
@@ -34,7 +35,6 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      // console.log(this)
       this.$refs.input.focus();
     });
   },
@@ -43,9 +43,6 @@ export default {
     // 组件自定义事件
     clearValue() {
       this.$emit("on-clear");
-    },
-    input(e){
-      this.$emit('input', e.target.value)
     }
   },
 };
@@ -54,6 +51,7 @@ export default {
 <style scoped lang="scss">
 .search-wrapper {
   height: 100px;
+  position: relative;
   .search {
     z-index: 99;
     position: fixed;

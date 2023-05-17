@@ -6,9 +6,14 @@
 
     <div class="tool">
       <m-button type="info" size="small" @click="cancle()">取 消</m-button>
-      <m-button type="primary" size="small" @click="clipImage()"
-        >保 存</m-button
+      <m-button 
+        type="primary" 
+        size="small" 
+        @click="clipImage()"
+        :loading="loading"
       >
+        保 存
+      </m-button>
     </div>
   </div>
 </template>
@@ -24,6 +29,10 @@ export default {
       type: String,
       default: null,
     },
+    loading: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -33,23 +42,21 @@ export default {
     };
   },
 
-  watch: {
-    img(val) {
-      console.log(val);
-
-      if (val === "" && this.cropper) {
-        this.cropper.destroy();
-      }
-
-      if (!this.cropper) {
-        this.initCropper();
-      } else {
-        if (val) {
-          this.cropper.replace(val);
-        }
-      }
-    },
-  },
+  // watch: {
+  //   img(val) {
+  //     if (val === "" && this.cropper) {
+  //       this.cropper.destroy();
+  //     }
+  //     if (!this.cropper) {
+  //       this.initCropper();
+  //     } 
+  //     else {
+  //       if (val) {
+  //         this.cropper.replace(val);
+  //       }
+  //     }
+  //   },
+  // },
 
   mounted() {
     this.initCropper();
@@ -58,17 +65,17 @@ export default {
   methods: {
     // 初始化裁剪
     initCropper() {
+      // 确保获取到最新的图片元素
       this.$nextTick(() => {
+        // 在图片元素上初始化裁剪框
         this.cropper = new Cropper(this.$refs.img, {
           aspectRatio: 1 / 1,
-          viewMode: 1,
+          viewMode: 1,  
           guides: true, // 裁剪框的虚线(九宫格)
           autoCropArea: 1,
           zoomable: true,
           zoomOnTouch: true,
           initialAspectRatio: 0.9,
-          // dragMode: 'move',
-          // cropBoxMovable: false,
           minCropBoxWidth: 200,
         });
       });
@@ -80,13 +87,13 @@ export default {
     },
 
     // 裁剪图片
+    // 图片裁剪完成后，将裁剪画布 `canvas` 转为图片信息流 `blob`,
     clipImage() {
       this.$nextTick(() => {
         let canvas = this.cropper.getCroppedCanvas({
           maxWidth: 300,
           maxHeight: 300,
         });
-
         canvas.toBlob((blob) => {
           this.$emit("on-change", blob);
         });
@@ -100,16 +107,17 @@ export default {
 .camera {
   background: #000;
   display: flex;
-  justify-content: space-around;
+  // justify-content: space-around;
   align-items: center;
   z-index: 99;
   position: fixed;
   left: 0;
+  right:0;
   top: 0;
-  width: 100%;
+  // width: 100%;
   bottom: 0;
   .camera-photo {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
+    // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
     #image {
       max-width: 100%;
     }
@@ -122,6 +130,7 @@ export default {
     padding: 0 20px;
     display: flex;
     justify-content: center;
+
     .m-button {
       flex: 1;
       margin: 0 20px;

@@ -55,9 +55,6 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-
-
-
 .layer-enter-active,
 .layer-leave-active {
   transition: all 0.3s;

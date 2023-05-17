@@ -1,22 +1,19 @@
 <template>
   <div class="container">
+    <!-- 
+      输入先流向data，data再通过props传递到子组件 
+      父子 props 之间形成了一个单向下行绑定：但是反过来则不行。 
+      防止从子组件意外改变父组件以及同级子组件的状态，导致你的应用的数据流向难以理解。 
+      同时当 <search-bar> 触发一个 input 事件并附带一个新的值的时候，
+      这个 keyword 的 property 将会被更新 
+    -->
+
     <!-- 搜索栏 -->
-    <!-- 输入先流向data，data再通过props传递到子组件 -->
-    <!-- 父子 props 之间形成了一个单向下行绑定：但是反过来则不行。 
-        防止从子组件意外改变父组件以及同级子组件的状态，导致你的应用的数据流向难以理解。 -->
-    <!-- ????传值 -->
-    <!-- 同时当 <search-bar> 触发一个 input 事件并附带一个新的值的时候，
-      这个 keyword 的 property 将会被更新 -->
     <search-bar
       v-model="keyword"
       @on-clear="clearKeyword"
     />
-    
-    <!-- <search-bar
-      v-model="keyword"
-      @on-clear="clearKeyword"
-      @keyword-change="storageKeyword"
-    /> -->
+ 
 
     <!-- 搜索时候显示内容 -->
     <search-result
@@ -25,8 +22,8 @@
       @keyword-change="storageKeyword"
     />
 
-    <!-- 未搜索时显示内容
-        历史搜索记录 -->
+
+    <!-- 历史搜索记录 -->
     <search-history
       v-show="!keyword"
       :histories="histories"
@@ -44,7 +41,11 @@ import SearchResult from "./components/SearchResult";
 export default {
   name: "Search",
 
-  components: {SearchBar, SearchHistory, SearchResult },
+  components: {
+    SearchBar, 
+    SearchHistory, 
+    SearchResult 
+  },
 
   data() {
     return {
@@ -62,12 +63,12 @@ export default {
   created() {
     this.getHistories();
   },
+  
 
   methods: {
     // 历史搜索记录
     getHistories() {
       const histories = localStorage.getItem("histories");
-
       if (histories) {
         try {
           this.histories = JSON.parse(histories);
@@ -100,13 +101,11 @@ export default {
       if (!keyword) return;
       // 获取历史记录数组
       this.getHistories();
-      
       if (!this.histories.includes(keyword)) {
         // 删除并返回数组最后一个元素
         if (this.histories.length > 20) {
           this.histories.pop();
         }
-
         this.histories.unshift(keyword);
         localStorage.setItem("histories", JSON.stringify(this.histories));
       }
