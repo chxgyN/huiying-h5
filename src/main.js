@@ -69,7 +69,7 @@ Vue.use(Skeleton);
 import { preventScroll } from './util/index'
 Vue.prototype.$preventScroll = preventScroll;
 
-import components from '@/components/packages'
+import components from '@/components /packages'
 Vue.use(components);
 
 // 应用名称

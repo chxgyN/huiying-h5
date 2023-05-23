@@ -74,7 +74,7 @@ axios.interceptors.response.use(res => {
     const { status, statusText } = error.response
   
 
-    // 后端定义的未登录状态
+    // 后端定义的未登录状态 token失效或者被篡改
     if (status === 401) {
       // // 清空
       store.commit("user/SET_USER", null);
